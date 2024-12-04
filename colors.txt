@@ -1,0 +1,4 @@
+#E4E0E1 - Light Gray
+#D6C0B3 - Light Brown
+#AB886D - Mild Brown
+#493628 - Dark Brown
