@@ -1,0 +1,25 @@
+{
+    "features":[
+        {
+            "label":"Χρώμα",
+            "name":"color",
+            "fieldType":"checkbox",
+            "options":[ 
+                "Χρυσό",
+                "Ασημί",
+                "Μαύρο",
+                "Λευκό",
+                "Μπλε",
+                "Κόκκινο",
+                "Πράσινο",
+                "Καφέ",
+                "Ροζ",
+                "Γκρί",
+                "Άλλο"
+            ],
+            "column":1,
+            "required":true,
+            "icon":"IoIosColorPalette"
+        }
+    ]
+}

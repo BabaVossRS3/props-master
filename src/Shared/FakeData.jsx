@@ -10,7 +10,7 @@ function createRandomItemList(){
         image: 'https://www.yumianfurniture.com/wp-content/uploads/2021/10/luxury-furniture-9-6.jpg',
         miles:3000,
         gearType:'Manual',
-        price:faker.finance.amount({min:5000,max:30000}) +'€'
+        price:faker.finance.amount({min:100,max:1500}) +'€'
     };
 }
 

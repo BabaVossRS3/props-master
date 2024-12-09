@@ -5,6 +5,8 @@ import { createBrowserRouter, Router, RouterProvider } from 'react-router-dom'
 import Home from './home'
 import Contact from './contact'
 import { ClerkProvider } from '@clerk/clerk-react'
+import Profile from './profile'
+import AddListing from './AddListing.jsx'
 
 
 const router = createBrowserRouter([
@@ -15,7 +17,15 @@ const router = createBrowserRouter([
   {
     path: '/contact',
     element: <Contact/>
-  }
+  },
+  {
+    path: '/profile',
+    element: <Profile/>
+  },
+  {
+    path: '/addListing',
+    element: <AddListing/>
+  },
 ])
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY

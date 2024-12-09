@@ -18,13 +18,16 @@ const MostSearched = () => {
     return (
     
     <div className='mx-24'>
-        <h2 className='font-bold text-3xl text-center my-16'>Δημοφιλής Αναζητήσεις</h2>
+        <h2 className='font-light text-3xl text-center my-16 text-[#B6A28E]'>Δημοφιλής Αναζητήσεις</h2>
 
         <Carousel>
-                <CarouselContent>                
+                <CarouselContent >                
                     {FakeData.itemList.map((item,index)=>(
                         //  posa item na deixnei to carousel
-                         <CarouselItem className='basis-1/4'>    
+                         <CarouselItem key={index}  className={`w-full 
+                            sm:basis-full 
+                            md:basis-1/2 
+                            lg:basis-1/4`} >    
                              <ProductItem item={item} key={index}/>                
                         </CarouselItem>
                     ))}
