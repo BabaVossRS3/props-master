@@ -14,9 +14,12 @@ export const ProductListing = pgTable('ProductListing',{
     brand:varchar('brand'),
     material:varchar('material').notNull(),
     color:varchar('color').notNull(),
-    listingdescription:varchar('listingdescription'),
+    listingdescription:varchar('listingdescription').notNull(),
     ownerName:varchar('ownerName').notNull(),
     ownerTel:varchar('ownerTel').notNull(),
+    addressPosted:varchar('addressPosted').notNull(),
+    createdBy: varchar('createdBy').notNull().default('example@example.com'),
+    postedOn:varchar('postedOn'),
 })
 
 export const ProductImages=pgTable('productImages',{

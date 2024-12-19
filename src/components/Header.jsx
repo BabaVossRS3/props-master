@@ -1,54 +1,50 @@
-import { UserButton, useUser } from '@clerk/clerk-react'
-import React from 'react'
+import { UserButton, SignedIn, SignedOut, SignInButton } from '@clerk/clerk-react';
+import React from 'react';
 import { Button } from './ui/button';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '@/assets/PROPS_logo-black.png';
 
 const Header = () => {
-
-    const {user, isSignedIn} = useUser();
+  const navigate = useNavigate();
 
   return (
     <div className='flex justify-around items-center shadow-sm p-5'>
-      <Link to={'/'}>     
-        <img src={logo} alt="PropsMaster" width={250} height={100} />
+      <Link to='/' aria-label="Go to Home">
+        <img src={logo} alt="PropsMaster Logo" width={250} height={100} />
       </Link>
 
-      <ul className=' hidden md:flex gap-12'>
-        <Link to={'/'}>
-          <li className='menu-li font-medium hover:scale-105 transition-all cursor-pointer hover:text-primary'>Αρχική</li>
+      {/* Desktop Navigation */}
+      <ul className='hidden md:flex gap-12'>
+        <Link to='/' className='menu-li font-light hover:scale-105 hover:font-medium transition-all cursor-pointer hover:text-primary'>
+          Αρχική
         </Link>
-        <Link to={'/search'}>
-          <li className='menu-li font-medium hover:scale-105 transition-all cursor-pointer hover:text-primary'>Αναζήτηση</li>
+        <Link to='/listings' className='menu-li font-light hover:scale-105 hover:font-medium transition-all cursor-pointer hover:text-primary'>
+          Αγγελίες
         </Link>
-        <Link to={'/listings'}>
-          <li className='menu-li font-medium hover:scale-105 transition-all cursor-pointer hover:text-primary'>Αγγελίες</li>
+        <Link to='/about' className='menu-li font-light hover:scale-105 hover:font-medium transition-all cursor-pointer hover:text-primary'>
+          Σχετικά Με Εμάς
         </Link>
-        <Link to={'/about'}>
-          <li className='menu-li font-medium hover:scale-105 transition-all cursor-pointer hover:text-primary'>Σχετικά Με Εμάς</li>
-        </Link>
-        <Link to={'/contact'}>
-          <li className='menu-li font-medium hover:scale-105 transition-all cursor-pointer hover:text-primary'>Επικοινωνία</li>
+        <Link to='/contact' className='menu-li font-light hover:scale-105 hover:font-medium transition-all cursor-pointer hover:text-primary'>
+          Επικοινωνία
         </Link>
       </ul>
 
-        {isSignedIn?
-            <div className='flex items-center gap-5'>
-                <UserButton/>
-                <Link to={'/addListing'}>
-                  <Button className=''>Νέα Καταχώρηση</Button>
-                </Link>
-            </div>
-            :      
-            <Link to={'/addListing'}>
-              <Button>Νέα Καταχώρηση</Button>
-            </Link>
-
-
-        }
-
+      {/* User Actions */}
+      <div className='flex items-center gap-5'>
+        <SignedIn>
+          {/* UserButton and Redirect to Add Listing */}
+          <Button className='hover:bg-[#f5945c] hover:scale-105 transition-all' onClick={() => navigate('/profile')}>Νέα Καταχώρηση</Button>
+          <UserButton/>
+        </SignedIn>
+        <SignedOut>
+          {/* Sign In Button */}
+          <SignInButton mode='modal'>
+            <Button>Νέα Καταχώρηση</Button>
+          </SignInButton>
+        </SignedOut>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

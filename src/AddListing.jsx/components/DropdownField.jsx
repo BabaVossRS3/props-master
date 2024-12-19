@@ -8,21 +8,28 @@ import {
 } from "@/components/ui/select"
 
 
-const DropdownField= ({item,handleInputChange}) => {
+const DropdownField= ({item,handleInputChange,productInfo}) => {
   return (
     <div>
-      <Select onValueChange={(value)=>handleInputChange(item.name,value)}required={item?.required}>
+      <Select
+        onValueChange={(value) => handleInputChange(item.name, value)}
+        required={item?.required}
+        defaultValue={productInfo?.[item?.name]}
+      >
         <SelectTrigger className="w-full">
-          <SelectValue placeholder= {item.label}/>
+          <SelectValue placeholder={productInfo?.[item?.name] || item?.label} />
         </SelectTrigger>
         <SelectContent>
-          {item?.options?.map((option,index)=>(
-            <SelectItem key={index} value={option}>{option}</SelectItem>
+          {item?.options?.map((option, index) => (
+            <SelectItem key={index} value={option}>
+              {option}
+            </SelectItem>
           ))}
         </SelectContent>
       </Select>
     </div>
-  )
+  );
+  
 }
 
 export default DropdownField

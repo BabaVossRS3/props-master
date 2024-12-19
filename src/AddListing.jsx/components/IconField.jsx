@@ -11,6 +11,8 @@ import { IoIosColorPalette } from "react-icons/io";
 import { TbFileDescription } from "react-icons/tb";
 import { IoPersonOutline } from "react-icons/io5";
 import { FaPhone } from "react-icons/fa";
+import { IoLocation } from "react-icons/io5";
+
 
 const iconMap={
     MdOutlineFeaturedPlayList:<MdOutlineFeaturedPlayList />,
@@ -24,7 +26,8 @@ const iconMap={
     IoIosColorPalette:<IoIosColorPalette />,
     TbFileDescription:<TbFileDescription />,
     IoPersonOutline:<IoPersonOutline />,
-    FaPhone:<FaPhone />
+    FaPhone:<FaPhone />,
+    IoLocation:<IoLocation />
 }
 
 const IconField = ({icon}) => {
