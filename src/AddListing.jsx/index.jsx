@@ -77,6 +77,8 @@ const AddListing = () => {
         const result  = await db.update(ProductListing).set({
           ...formData,
             createdBy: user?.primaryEmailAddress?.emailAddress,
+            userName: user?.fullName,
+            userImageUrl:user?.imageUrl,
             postedOn: moment().format('DD/MM/YYYY')
         }).where(eq(ProductListing.id,recordId)).returning({id:ProductListing.id});
         navigate('/profile')

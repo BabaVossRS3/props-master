@@ -12,6 +12,13 @@ import { TbFileDescription } from "react-icons/tb";
 import { IoPersonOutline } from "react-icons/io5";
 import { FaPhone } from "react-icons/fa";
 import { IoLocation } from "react-icons/io5";
+import { PiHammer } from "react-icons/pi";
+import { FaCalendarAlt } from "react-icons/fa";
+import { MdPrecisionManufacturing } from "react-icons/md";
+import { FaPalette } from "react-icons/fa";
+
+
+
 
 
 const iconMap={
@@ -27,7 +34,15 @@ const iconMap={
     TbFileDescription:<TbFileDescription />,
     IoPersonOutline:<IoPersonOutline />,
     FaPhone:<FaPhone />,
-    IoLocation:<IoLocation />
+    IoLocation:<IoLocation />,
+    PiHammer:<PiHammer />,
+    FaCalendarAlt:<FaCalendarAlt />,
+    MdPrecisionManufacturing:<MdPrecisionManufacturing />,
+    FaPalette:<FaPalette />
+
+
+
+
 }
 
 const IconField = ({icon}) => {

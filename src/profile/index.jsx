@@ -2,6 +2,7 @@ import Header from '@/components/Header'
 import React from 'react'
 import MyListings from './components/MyListings'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import  Inbox  from './components/inbox'
 
 
 const Profile = () => {
@@ -19,7 +20,7 @@ const Profile = () => {
           <TabsContent value='my-listing' className='mt-10'>
           <MyListings/></TabsContent>
           <TabsContent value='inbox'>
-          Inbox Tab</TabsContent>
+          <Inbox/></TabsContent>
           <TabsContent value='profile'>
             Profile Tab
           </TabsContent>

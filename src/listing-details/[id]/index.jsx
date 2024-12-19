@@ -8,7 +8,11 @@ import Service from '@/Shared/Service'
 import { db } from './../../../configs'
 import ImageGallery from '../components/ImageGallery'
 import  Description  from '../components/Description'
-
+import Pricing from '../components/Pricing'
+import Specification from '../components/Specification'
+import OwnersDetails from '../components/OwnersDetails'
+import Footer from '@/components/Footer'
+import MostSearched from '@/components/MostSearched'
 const ListingDetail = () => {
 // kartela proiontos
     const {id}=useParams();
@@ -17,6 +21,7 @@ const ListingDetail = () => {
 
     useEffect(()=>{
         GetProductDetail();
+        window.scrollTo(0, 0);  // Scrolls to the top of the page when the component loads
     },[]);
 
     const GetProductDetail= async()=>{
@@ -45,16 +50,17 @@ const ListingDetail = () => {
             {/* right */}
             <div className="md:grid-cols-1">
                 {/* pricing */}
-
+                <Pricing productDetail={productDetail}/>
                 {/* properties */}
-
+                <Specification productDetail={productDetail}/>
                 {/* stoixeia idiwth */}
+                <OwnersDetails productDetail={productDetail}/>
             </div>
         </div>
-
+      <MostSearched/>
       </div>
       {/* Header Detail Component */}
-
+      <Footer/>
     </div>
   )
 }
