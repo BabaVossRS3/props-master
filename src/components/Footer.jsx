@@ -2,7 +2,7 @@ import React from 'react'
 
 const Footer = () => {
   return (
-      <footer className="bg-gray-100 mt-10">
+      <footer className="bg-gray-100">
         <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
             <div className="flex justify-center text-teal-600">
             <img src="src\assets\PROPS_logo-black.png" alt="" width={300}/>

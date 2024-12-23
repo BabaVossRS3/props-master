@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';  // Import useSearchParams t
 import Header from '@/components/Header';
 import MyListings from './components/MyListings';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import MyProfile from './components/MyProfile';
 
 const Profile = () => {
   // Get the tab query parameter from the URL
@@ -18,15 +19,15 @@ const Profile = () => {
             <TabsTrigger className="text-white bg-orange-300 mx-3" value="my-listings">
               Οι Αγγελίες Μου
             </TabsTrigger>
-            <TabsTrigger className="text-white bg-orange-300 mx-3" value="profile">
+            <TabsTrigger className="text-white bg-orange-300 mx-3" value="my-profile">
               Λογαριασμός
             </TabsTrigger>
           </TabsList>
           <TabsContent value="my-listings" className="mt-10">
             <MyListings />
           </TabsContent>
-          <TabsContent value="profile">
-            Profile Tab
+          <TabsContent value="my-profile">
+            <MyProfile />
           </TabsContent>
         </Tabs>
       </div>

@@ -69,6 +69,19 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+.category-images {
+  fill: #e38434; /* For SVG fill color */
+  color: #e38434; /* For general text-based icons */
+}
+.about-bg {
+  position: relative;
+  background-image: 
+  linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), 
+  url('src/assets/assortment-antiques-market-objects.jpg');  background-size: cover;
+  background-position: center;
+  padding: 20px;
+}
+
 
 .searchBar{
   border-radius: 25px;
@@ -77,9 +90,9 @@ button:focus-visible {
   position: relative;
   width: 100%;
   background-image: 
-    linear-gradient(rgba(224, 123, 57, 0.5), rgba(224, 123, 57, 0.3)), 
-    url('./assets/iStock-1290851803.jpg');
-  background-position: bottom;
+    linear-gradient(rgba(224, 123, 57, 0.5), rgba(224, 123, 57, 0.5)), 
+    url('src/assets/live-stream-background-empowering-travel-food-content-creator-with-live-stream-social-media.jpg');
+  background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   overflow: hidden;
@@ -157,6 +170,14 @@ button:focus-visible {
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
   .dark {
     --background: 0 0% 3.9%;
@@ -183,6 +204,14 @@ button:focus-visible {
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
 

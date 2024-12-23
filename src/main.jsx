@@ -16,6 +16,8 @@ import ListingDetail from './listing-details/[id]'
 import About from './about'
 import Aggelies from './aggelies'
 import ScrollToTopButton from './components/ScrollToTop'
+import { CategoryProvider } from './components/CategoriesContext'; // Adjust the path
+
 
 
 const router = createBrowserRouter([
@@ -67,7 +69,9 @@ if (!PUBLISHABLE_KEY) {
 createRoot(document.getElementById('root')).render(
   <StrictMode>
      <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
-        <RouterProvider router={router} />
+        <CategoryProvider> {/* Add the CategoryProvider here */}
+          <RouterProvider router={router} />
+        </CategoryProvider>
         <Toaster/>
         <ScrollToTopButton/>
      </ClerkProvider>

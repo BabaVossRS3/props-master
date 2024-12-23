@@ -1,7 +1,5 @@
 import React from 'react';
-import { Button } from './ui/button';
 import { FaArrowCircleUp } from "react-icons/fa";
-
 
 function ScrollToTopButton() {
   const handleScrollToTop = () => {
@@ -12,8 +10,11 @@ function ScrollToTopButton() {
   };
 
   return (
-    <button className='fixed right-4 bottom-4 text-white rounded-full text-xl'>    
-        <FaArrowCircleUp />
+    <button
+      onClick={handleScrollToTop} // Add the click handler
+      className='fixed right-4 bottom-4 text-white rounded-full text-xl bg-orange-400 p-3 shadow-md hover:scale-110 transition-all' // Add some styling
+    >
+      <FaArrowCircleUp />
     </button>
   );
 }
