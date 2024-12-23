@@ -13,6 +13,9 @@ import SearchByCategory from './search/[category]'
 import SearchByOptions from './search'
 import '@fontsource/roboto';
 import ListingDetail from './listing-details/[id]'
+import About from './about'
+import Aggelies from './aggelies'
+import ScrollToTopButton from './components/ScrollToTop'
 
 
 const router = createBrowserRouter([
@@ -23,6 +26,14 @@ const router = createBrowserRouter([
   {
     path: '/contact',
     element: <Contact/>
+  },
+  {
+    path: '/about',
+    element:<About/>
+  },
+  {
+    path:'/aggelies',
+    element:<Aggelies/>
   },
   {
     path: '/profile',
@@ -58,6 +69,7 @@ createRoot(document.getElementById('root')).render(
      <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
         <RouterProvider router={router} />
         <Toaster/>
+        <ScrollToTopButton/>
      </ClerkProvider>
   </StrictMode>,
 )

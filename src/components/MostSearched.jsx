@@ -31,7 +31,6 @@ const MostSearched = () => {
                 // prpeei omws na boune items apo boost 
                 const resp=Service.FormatResult(result);
                 setProductList(resp);
-                console.log(resp)
     }
 
     return (

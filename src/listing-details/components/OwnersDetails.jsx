@@ -1,27 +1,11 @@
 import { Button } from '@/components/ui/button'
-import Service from '@/Shared/Service'
 import { useUser } from '@clerk/clerk-react'
+import { Separator } from '@radix-ui/react-select';
 import React from 'react'
-import { FaMessage } from 'react-icons/fa6'
 
 const OwnersDetails = ({productDetail}) => {
 
   const {user}=useUser();
-  const OnMessageOwnerButtonCLick=async()=>{
-    //create user id 
-    try{
-      const userId=user.primaryEmailAddress.emailAddress.split('@')[0];
-      await Service.CreateSendBirdUser(userId,user?.fullName,user?.imageUrl)
-      .then(resp=>{
-        console.log(resp);
-      })
-    }catch(e){
-
-    }
-    //create owner user id 
-
-    //create a channel between them 
-  }
 
   return (
     <div className='p-10 border rounded-xl shadow-md mt-7'>
@@ -33,10 +17,15 @@ const OwnersDetails = ({productDetail}) => {
                 <h2 className="text-gray-400">{productDetail?.createdBy}</h2>
             </div>
         </div>
-
-        <Button onClick={OnMessageOwnerButtonCLick} size="lg" className="hover:scale-105 hover:bg-[#e38434] transition-all font-roboto mt-4 w-full">
-                    Στείλε Μήνυμα <FaMessage />
-                </Button>
+        <Separator/>
+        <div className="flex gap-10 mt-5 items-center">
+          <h2 className='text-2xl'>Τηλέφωνο:</h2>
+          <h2 className="font-medium text-xl ">
+            <a href={`tel:+${productDetail?.ownerTel}`} className="text-[#242424] hover:scale-105 hover:text-[#E78430] transition-all  no-underline">
+              {productDetail?.ownerTel}
+            </a>
+          </h2>
+        </div>
     </div>
   )
 }

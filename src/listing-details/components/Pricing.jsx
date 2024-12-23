@@ -12,9 +12,6 @@ const Pricing = ({productDetail}) => {
         <h2 className="text-[#242424] text-4xl pt-4 w-full font-bold ">
             {productDetail.sellingPrice} €
         </h2>
-        <Button size="lg" className="hover:scale-105 hover:bg-[#e38434] transition-all font-roboto mt-4 w-full">
-            Στείλε Μήνυμα <FaMessage />
-        </Button>
     </>
 ) : (
     <div className="w-full h-[200px] rounded-xl bg-orange-100 animate-pulse"></div>

@@ -19,15 +19,16 @@ const ProductItem = ({ product }) => {
                 <div className="grid grid-cols-3 pt-5 pb-5 h-[170px]">
                     <div className="flex flex-col items-center">
                         <MdOutlineCategory className='text-l mb-2' />
-                        <h2 className='text-center'>Κατηγορία<br/>{product?.category || 'Άγνωστη Κατηγορία'}</h2>
+                        <h2 className='text-center'><span className='border-b border-solid pb-3'>Κατηγορία</span><br/><br/>{product?.category || 'Άγνωστη Κατηγορία'}</h2>
                     </div>
                     <div className="flex flex-col items-center">
                         <MdOutlineSafetyCheck className='text-l mb-2' />
-                        <h2 className='text-center'>Χρονολογία<br/>{product?.year}</h2>
+                        <h2 className='text-center'><span className='border-b border-solid pb-3'>Χρονολογία</span>
+                        <br/><br/>{product?.year}</h2>
                     </div>
                     <div className="flex flex-col items-center">
                         <IoLocationOutline className='text-l mb-2' />
-                        <h2 className='text-center'>Περιοχή <br/> {product?.addressPosted}</h2>
+                        <h2 className='text-center'><span className='border-b border-solid pb-3'>Περιοχή</span><br/><br/>{product?.addressPosted}</h2>
                     </div>
                 </div>
                 <Separator className='border-t-2 my-2'/>

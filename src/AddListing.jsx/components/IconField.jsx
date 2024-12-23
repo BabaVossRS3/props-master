@@ -21,6 +21,7 @@ import { FaPalette } from "react-icons/fa";
 
 
 
+
 const iconMap={
     MdOutlineFeaturedPlayList:<MdOutlineFeaturedPlayList />,
     GiBuyCard:<GiBuyCard />,

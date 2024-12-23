@@ -20,7 +20,7 @@ export const ProductListing = pgTable('ProductListing',{
     addressPosted:varchar('addressPosted').notNull(),
     createdBy: varchar('createdBy').notNull().default('example@example.com'),
     postedOn:varchar('postedOn'),
-    userImageUrl:varchar('userImageUrl').default('https://lh3.googleusercontent.com/a/ACg8ocL4GFjd-76dEH_L4jnGQvK61LcdUYCMqMQEQNi1wVtDWmE0TPdZ=s360-c-no')
+    userImageUrl:varchar('userImageUrl')
 })
 
 export const ProductImages=pgTable('productImages',{

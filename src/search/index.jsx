@@ -21,7 +21,7 @@ const SearchByOptions = () => {
 
     useEffect(()=>{
         GetProductList();
-    },[])
+    },[category,typeoflist,price])
 
     const GetProductList=async()=>{
         const result = await db.select().from(ProductListing).innerJoin(ProductImages,eq(ProductListing.id,ProductImages.ProductListingId))
@@ -42,7 +42,10 @@ const SearchByOptions = () => {
         <Search/>
       </div>
       <div className="p-10 md:pt-20">
-        <h2 className='font-light text-4xl pb-6 '>{category}</h2>
+      <h2 className="font-light text-4xl pb-6">
+        {category && category.trim() ? category : 'Αποτελεσματα'}
+      </h2>
+
         <Separator className='flex justify-center h-[1px] w-1/3 ml-10 bg-gradient-to-r from-transparent via-[#e38434] to-transparent)' />
         {/* lista kathgoriwn */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 p-10 mt-7">

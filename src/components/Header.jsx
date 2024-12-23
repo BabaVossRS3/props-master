@@ -15,16 +15,16 @@ const Header = () => {
 
       {/* Desktop Navigation */}
       <ul className='hidden md:flex gap-12'>
-        <Link to='/' className='menu-li font-light hover:scale-105 hover:font-medium transition-all cursor-pointer hover:text-primary'>
+        <Link to='/' className='menu-li font-medium text-lg hover:scale-105  transition-all cursor-pointer hover:text-primary'>
           Αρχική
         </Link>
-        <Link to='/listings' className='menu-li font-light hover:scale-105 hover:font-medium transition-all cursor-pointer hover:text-primary'>
+        <Link to='/aggelies' className='menu-li font-medium text-lg hover:scale-105  transition-all cursor-pointer hover:text-primary'>
           Αγγελίες
         </Link>
-        <Link to='/about' className='menu-li font-light hover:scale-105 hover:font-medium transition-all cursor-pointer hover:text-primary'>
+        <Link to='/about' className='menu-li font-medium text-lg hover:scale-105  transition-all cursor-pointer hover:text-primary'>
           Σχετικά Με Εμάς
         </Link>
-        <Link to='/contact' className='menu-li font-light hover:scale-105 hover:font-medium transition-all cursor-pointer hover:text-primary'>
+        <Link to='/contact' className='menu-li font-medium text-lg hover:scale-105  transition-all cursor-pointer hover:text-primary'>
           Επικοινωνία
         </Link>
       </ul>
@@ -33,7 +33,7 @@ const Header = () => {
       <div className='flex items-center gap-5'>
         <SignedIn>
           {/* UserButton and Redirect to Add Listing */}
-          <Button className='hover:bg-[#f5945c] hover:scale-105 transition-all' onClick={() => navigate('/profile')}>Νέα Καταχώρηση</Button>
+          <Button className='hover:bg-[#f5945c] hover:scale-105 transition-all' onClick={() => navigate('/profile?tab=my-listings')}>Νέα Καταχώρηση</Button>
           <UserButton/>
         </SignedIn>
         <SignedOut>

@@ -1,10 +1,13 @@
-#E4E0E1 - Light Gray
-#D6C0B3 - Light Brown
-#AB886D - Mild Brown
-#493628 - Dark Brown
+
+#242424 - Black Shade for text
+#AB886D - Mild Brown for titles
+#fcc178 - Icons Color
+#E78430 - Main Orange
+
 
 for email we use Clerk
 for libraries we use shadcdn 
 for icons we use react library
 for database dashboard we use Drizzle and Neon
 for images we use firebase to ulpoad  5gb/free storage
+for chat we use sendbird and axios

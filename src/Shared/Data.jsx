@@ -7,7 +7,7 @@ export const CategoriesList=[
     {
         id:2,
         name:'Ζωγραφική & Τέχνη',
-        icon:'src/assets/furnitures.png'
+        icon:'src/assets/starry-night.png'
 
     },
     {
@@ -19,67 +19,67 @@ export const CategoriesList=[
     {
         id:4,
         name:'Κοσμήματα & Ρολόγια',
-        icon:'src/assets/sofa.png'
+        icon:'src/assets/necklace.png'
 
     },
     {
         id:5,
         name:'Μεταλλικά Αντικείμενα',
-        icon:'src/assets/chest-of-drawers.png'
+        icon:'src/assets/camera-crane.png'
 
     },
     {
         id:6,
         name:'Αντίκες από Κεραμικά & Γυαλί',
-        icon:'src/assets/chest-of-drawers.png'
+        icon:'src/assets/mirror.png'
 
     },
     {
         id:7,
         name:'Χειροποίητες Αντίκες',
-        icon:'src/assets/chest-of-drawers.png'
+        icon:'src/assets/handcraft.png'
 
     },
     {
         id:8,
         name:'Συλλογές & Μνημεία',
-        icon:'src/assets/chest-of-drawers.png'
+        icon:'src/assets/statue.png'
 
     },
     {
         id:9,
         name:'Αντίκες Ρούχων & Υφασμάτων',
-        icon:'src/assets/chest-of-drawers.png'
+        icon:'src/assets/wardrobe.png'
 
     },
     {
         id:10,
         name:'Αναμνηστικά & Σπάνια Αντικείμενα',
-        icon:'src/assets/chest-of-drawers.png'
+        icon:'src/assets/crystal.png'
 
     },
     {
         id:11,
         name:'Αντίκες Οικιακών Σκευών',
-        icon:'src/assets/chest-of-drawers.png'
+        icon:'src/assets/household-appliance.png'
 
     },
     {
         id:12,
         name:'Βιβλία & Χάρτες',
-        icon:'src/assets/chest-of-drawers.png'
+        icon:'src/assets/open-book.png'
 
     },
     {
         id:13,
         name:'Αρχαιολογικά Αντικείμενα',
-        icon:'src/assets/chest-of-drawers.png'
+        icon:'src/assets/vase.png'
 
     },
     {
         id:14,
         name:'Αντίκες Σαπούνι & Κεριά',
-        icon:'src/assets/chest-of-drawers.png'
+        icon:'src/assets/candle.png'
 
     },
 ]

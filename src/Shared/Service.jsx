@@ -48,7 +48,7 @@ const CreateSendBirdUser =(userId,nickname,profileUrl)=>{
         })
 }
 
-export default { FormatResult , CreateSendBirdUser };
+export default { FormatResult , CreateSendBirdUser};
 
 
 
