@@ -5,8 +5,8 @@ import InputField from './components/InputField'
 import DropdownField from './components/DropdownField'
 import TextAreaField from './components/TextAreaField'
 import { Button } from '@/components/ui/button'
-import { db } from './../../configs'
-import { ProductImages, ProductListing } from './../../configs/schema'
+import { db } from '../../configs'
+import { ProductImages, ProductListing } from '../../configs/schema'
 import IconField from './components/IconField'
 import UploadImages from './components/UploadImages'
 import { Separator } from '@radix-ui/react-select'
@@ -14,8 +14,8 @@ import { BiLoaderAlt } from "react-icons/bi";
 import { useNavigate, useSearchParams} from 'react-router-dom'
 import { useToast } from "@/hooks/use-toast"
 import { useUser } from '@clerk/clerk-react'
-import moment from 'moment';
 import { use } from 'react'
+import moment from 'moment';
 import { eq } from 'drizzle-orm'
 import Service from '@/Shared/Service'
 
@@ -23,7 +23,7 @@ import Service from '@/Shared/Service'
 
 
 
-const AddListing = () => {
+const BoostPlusListing = () => {
 
   const [formData,setFormData] = useState([])
   const [triggerUploadImages,setTriggerUploadImages] = useState();
@@ -78,7 +78,7 @@ const AddListing = () => {
           ...formData,
             createdBy: user?.primaryEmailAddress?.emailAddress,
             userName: user?.fullName,
-            userImageUrl:user?.imageUrl,
+            userImageUrl: user?.profileImageUrl,
             postedOn: moment().format('DD/MM/YYYY')
         }).where(eq(ProductListing.id,recordId)).returning({id:ProductListing.id});
         navigate('/profile')
@@ -90,7 +90,8 @@ const AddListing = () => {
           setLoader(false);
           toast({
             title: "Η Αγγελία σας Ανέβηκε επιτυχώς", 
-            className: "bg-green-500 text-white"  
+            className: "bg-green-500 text-white",
+            duration: 5000,  
           });
         }
     }
@@ -100,6 +101,7 @@ const AddListing = () => {
           .values({
             ...formData,
             createdBy: user?.primaryEmailAddress?.emailAddress,
+            userImageUrl:user?.imageUrl,
             postedOn: moment().format('DD/MM/YYYY')
           })
           .returning({ id: ProductListing.id });
@@ -118,7 +120,7 @@ const AddListing = () => {
         toast({
           variant: "destructive",
           title: "Κάτι Πήγε στραβά",  
-          description: e.message 
+          description: "Παρακαλώ συμπληρώστε όλα τα πεδία με τα σωστά τους στοιχεία"
         });
         setLoader(false);
       }
@@ -126,48 +128,61 @@ const AddListing = () => {
   }
     
 
-
   return (
     <div>
-      <Header/>
+      <Header />
       <div className="px-10 md:px-20 my-10">
-        <h2 className='font-bold text-4xl'>Νέα Αγγελία</h2>
-        <form className="p-10 border rounded-xl mt-10 ">
-            {/* {Στοιχεία Προΐοντος} */}
-            <div className="">
-                <h2 className='font-md text-xl mb-6 '>Περιγραφή Προΐοντος</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                  {productDetails.productDetail.map((item,index)=>(
-                    <div key={index} className="">
-                        <label className='text-sm flex items-center gap-2 mb-2'>
-                         <IconField icon={item?.icon}/> {item?.label} {item.required&&<span className='text-red-500'>*</span>}</label>
-                        {item.fieldType=='text'|| item.fieldType=='number'?<InputField item={item} handleInputChange={handleInputChange} productInfo={productInfo}/>
-                        :item.fieldType=='dropdown'?<DropdownField item={item}
-                        handleInputChange={handleInputChange} productInfo={productInfo} />
-                        :item.fieldType=='textarea'?<TextAreaField item={item}
-                        handleInputChange={handleInputChange} productInfo={productInfo}/>
-                        :item.fieldType=='tel'?<InputField item={item} handleInputChange={handleInputChange} productInfo={productInfo}/>
-                        :null}
-                    </div>
-                  ))}
+        <h2 className='font-bold text-4xl'>Νέα Αγγελία <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 ml-2 via-orange-500 to-red-600 font-bold text-6xl font-dancing-script">Boost+</span></h2>
+        <form className="p-10 border rounded-xl mt-10">
+          {/* {Στοιχεία Προΐοντος} */}
+          <div className="">
+            <h2 className='font-md text-xl mb-6 '>Περιγραφή Προΐοντος</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {productDetails.productDetail.map((item, index) => (
+                <div key={index} className="">
+                  <label className='text-sm flex items-center gap-2 mb-2'>
+                    <IconField icon={item?.icon} /> {item?.label} {item.required && <span className='text-red-500'>*</span>}
+                  </label>
+                  
+                  {item.fieldType === 'text' || item.fieldType === 'number' ? (
+                    <InputField item={item} handleInputChange={handleInputChange} productInfo={productInfo} />
+                  ) : item.fieldType === 'dropdown' ? (
+                    <DropdownField item={item} handleInputChange={handleInputChange} productInfo={productInfo} />
+                  ) : item.fieldType === 'textarea' ? (
+                    <TextAreaField item={item} handleInputChange={handleInputChange} productInfo={productInfo} />
+                  ) : item.fieldType === 'tel' ? (
+                    <InputField item={item} handleInputChange={handleInputChange} productInfo={productInfo} />
+                  ) : null}
                 </div>
+              ))}
             </div>
-            {/* Eikones */}
-            <Separator className='my-6'/>
-            <UploadImages triggerUploadImages={triggerUploadImages} productInfo={productInfo} mode={mode}
-              setLoader={(v) => { 
-                setLoader(v);
-                navigate('/');
-              }} />
-            <div className="mt-10 flex justify-end">
-              <Button type='button' disabled={loader} onClick={(e)=> onSubmit(e)} > {!loader?'Ανάρτηση':<BiLoaderAlt className='text-[#fff] animate-spin text-lg' />
-              }</Button>
-            </div>
+          </div>
+  
+          {/* Eikones */}
+          <Separator className='my-6' />
+          <UploadImages 
+            triggerUploadImages={triggerUploadImages} 
+            productInfo={productInfo} 
+            mode={mode} 
+            setLoader={(v) => { 
+              setLoader(v); 
+              navigate('/'); 
+            }} 
+          />
+          
+          <div className="mt-10 flex justify-end">
+            <Button 
+              type='button' 
+              disabled={loader} 
+              onClick={(e) => onSubmit(e)}
+            >
+              {!loader ? 'Ανάρτηση' : <BiLoaderAlt className='text-[#fff] animate-spin text-lg' />}
+            </Button>
+          </div>
         </form>
-        
       </div>
     </div>
-  )
+  );
 }
 
-export default AddListing;
+export default BoostPlusListing;

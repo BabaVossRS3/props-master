@@ -16,6 +16,8 @@ import { PiHammer } from "react-icons/pi";
 import { FaCalendarAlt } from "react-icons/fa";
 import { MdPrecisionManufacturing } from "react-icons/md";
 import { FaPalette } from "react-icons/fa";
+import { RiDiscountPercentFill } from "react-icons/ri";
+
 
 
 
@@ -39,7 +41,9 @@ const iconMap={
     PiHammer:<PiHammer />,
     FaCalendarAlt:<FaCalendarAlt />,
     MdPrecisionManufacturing:<MdPrecisionManufacturing />,
-    FaPalette:<FaPalette />
+    FaPalette:<FaPalette />,
+    RiDiscountPercentFill:<RiDiscountPercentFill />
+
 
 
 

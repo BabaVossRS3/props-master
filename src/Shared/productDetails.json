@@ -23,12 +23,22 @@
             "icon":"GiBuyCard"
         },   
         {
-            "label":"Τιμή Πώλησης",
+            "label":"Τιμή",
             "name":"sellingPrice",
             "fieldType":"number",
             "required":true,
             "column":1,
             "icon":"FaEuroSign"
+        },
+        {
+            
+            "label": "Συζητήσιμη",
+            "name": "negotiable",
+            "fieldType": "dropdown",
+            "options": ["Nαί", "'Oχι"],
+            "required":true,
+            "column":1,
+            "icon":"RiDiscountPercentFill"
         },
         {
             "label":"Κατηγορία",

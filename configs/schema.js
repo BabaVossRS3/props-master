@@ -8,6 +8,7 @@ export const ProductListing = pgTable('ProductListing',{
     listingTitle:varchar('listingTitle').notNull(),
     typeoflist:varchar('typeoflist').notNull(),
     sellingPrice:varchar('sellingPrice').notNull(),
+    negotiable:varchar('negotiable').notNull(),
     category:varchar('category').notNull(),
     condition:varchar('condition'),
     year:varchar('year'),

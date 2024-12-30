@@ -6,7 +6,6 @@ import Home from './home'
 import Contact from './contact'
 import { ClerkProvider } from '@clerk/clerk-react'
 import Profile from './profile'
-import AddListing from './AddListing.jsx'
 import { Toaster } from './components/ui/toaster'
 import Search from './components/Search'
 import SearchByCategory from './search/[category]'
@@ -17,6 +16,10 @@ import About from './about'
 import Aggelies from './aggelies'
 import ScrollToTopButton from './components/ScrollToTop'
 import { CategoryProvider } from './components/CategoriesContext'; // Adjust the path
+import ChoosePlan from './ChoosePlan'
+import BasicListing from './AddListing.jsx/BasicListing.jsx'
+import BoostListing from './AddListing.jsx/BoostListing'
+import BoostPlusListing from './AddListing.jsx/BoostPlusListing'
 
 
 
@@ -42,8 +45,16 @@ const router = createBrowserRouter([
     element: <Profile/>
   },
   {
-    path: '/addListing',
-    element: <AddListing/>
+    path: '/BasicListing',
+    element: <BasicListing/>
+  },
+  {
+    path: '/BoostListing',
+    element: <BoostListing/>
+  },
+  {
+    path: '/BoostPlusListing',
+    element: <BoostPlusListing/>
   },
   {
     path:'/search/:category',
@@ -56,6 +67,10 @@ const router = createBrowserRouter([
   {
     path:'/listing-details/:id',
     element:<ListingDetail/>
+  },
+  {
+    path:'/choosePlan',
+    element:<ChoosePlan/>
   },
 ])
 

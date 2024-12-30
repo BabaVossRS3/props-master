@@ -359,5 +359,5 @@ export const addressList = [
       id: 52,
       name: 'Χίος',
     }
-  ];
+];
   

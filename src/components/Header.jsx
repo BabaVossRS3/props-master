@@ -39,7 +39,7 @@ const Header = () => {
         <SignedOut>
           {/* Sign In Button */}
           <SignInButton mode='modal'>
-            <Button>Νέα Καταχώρηση</Button>
+            <Button className='hover:bg-[#f5945c] hover:scale-105 transition-all'>Νέα Καταχώρηση</Button>
           </SignInButton>
         </SignedOut>
       </div>

@@ -6,12 +6,16 @@ import { IoLocationOutline } from "react-icons/io5";
 import { IoOpenOutline } from "react-icons/io5";
 import { Link } from 'react-router-dom';
 
+
 const ProductItem = ({ product }) => {    
 
   return (
     <Link to={'/listing-details/'+product?.id}>
         <div className='text-[#242424] hover:scale-105 hover:shadow-md transition-all shadow-sm rounded-xl bg-[#f8f8f8]'>
-            <h2 className='absolute m-4 bg-orange-500 px-2 rounded-full text-sm pb-1 text-white'>Νέα</h2>
+            <h2 className='absolute m-4 bg-orange-500 px-2 rounded-full text-sm pb-1 text-white'>
+                {product?.typeoflist === 'Αγορά' ? 'Πώληση' : 'Ενικοίαση'}
+            </h2>
+
             <img src={product?.images[0]?.imageUrl} width={'100%'} height={250} className='rounded-t-xl h-[250px] object-cover' />
             <div className="p-4">
                 <h2 className='font-bold text-[#242424] text-lg mb-2'>{product?.listingTitle}</h2>
@@ -34,7 +38,11 @@ const ProductItem = ({ product }) => {
                 <Separator className='border-t-2 my-2'/>
                 <div className="flex justify-around m-3 items-center">
 
-                    <h2 className='text-center p-3'>{product?.sellingPrice || 'Τιμή Μη Διαθέσιμη'}€ </h2>
+                <h2 className="text-center p-3">
+                    {product?.sellingPrice || 'Τιμή Μη Διαθέσιμη'}
+                    {product?.typeoflist === 'Ενοικίαση' && '€ /μέρα'}
+                    {product?.typeoflist !== 'Ενοικίαση' && '€'}
+                </h2>
                     <h2 className=' p-2 bg-orange-500 rounded text-white flex gap-1 items-center text-sm cursor-pointer hover:scale-105 transition-all'>      
                         Δείτε Περισσότερα <IoOpenOutline className='mx-1'/>
                     </h2>

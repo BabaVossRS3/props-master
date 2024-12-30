@@ -81,8 +81,6 @@ button:focus-visible {
   background-position: center;
   padding: 20px;
 }
-
-
 .searchBar{
   border-radius: 25px;
 }
@@ -111,12 +109,7 @@ button:focus-visible {
 .category-images{
   filter: brightness(0) saturate(100%) invert(67%) sepia(49%) saturate(608%) hue-rotate(347deg) brightness(98%) contrast(94%);
   }
-.hero-h2{
-  
-}
-.hero-h2-2{
-  
-}
+
 .searchIcon{
   color: white;
   width: 60px;
@@ -127,6 +120,113 @@ button:focus-visible {
 .header-button{
   color: #E07B39;
 
+}
+
+/* CHOOSE PLAN PAGE */
+
+/* Main container for the plans */
+.choose-plan-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 40px;
+  background-color: #f9f9f9;
+}
+
+/* Basic styles for each plan container */
+div[class$="-plan"] {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 30%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+div[class$="-plan"]:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+}
+
+/* Headings */
+.plan-h2 {
+  font-size: 24px;
+  color: #AB886D;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.side-title{
+  text-align: center;
+}
+
+/* Paragraph text for descriptions */
+.side-title {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+/* Styling for list items */
+.ul-plan-page {
+  list-style-type: none;
+  padding: 0;
+}
+
+.ul-plan-page li {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+}
+
+.ul-plan-page li:before {
+  content: "✔";
+  color: #E78430;
+  margin-right: 10px;
+  font-weight: bold;
+}
+.plan-h2-price-span{
+  font-size: 2rem;
+  color: #AB886D;
+}
+
+/* Button styles */
+.btn-signup {
+  background-color: #fcc178;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 20px;
+  width: 100%;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.btn-signup:hover {
+  background-color: #E78430;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .choose-plan-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  div[class$="-plan"] {
+    width: 100%;
+  }
 }
 
 

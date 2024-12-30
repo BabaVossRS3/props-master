@@ -11,6 +11,7 @@ const Category = () => {
   const handleCategoryClick = (categoryName) => {
     setSelectedCategory(categoryName); // Update the selected category
     navigate('/aggelies'); // Navigate to the /aggelies page
+    window.scrollTo(0, 0);
   };
 
   return (
