@@ -79,9 +79,7 @@ const MyProfile = ({ totalListings }) => {
                 <div className="flex justify-between items-center p-4 bg-white rounded-lg shadow-sm">
                     <h2 className="text-lg font-semibold text-gray-700">Συνδρομές</h2>
                     <div className="flex items-center">
-                        <p className="text-transparent bg-clip-text bg-gradient-to-r from-gray-300 to-gray-400 font-bold text-2xl mr-2">Basic</p>|
-                        <p className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 font-bold text-2xl mr-2 ml-2 font-inter">Boost</p>|
-                        <p className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 ml-2 via-orange-500 to-red-600 font-bold text-4xl font-dancing-script">Boost+</p>
+                        <p className="user-plan text-transparent bg-clip-text bg-gradient-to-r from-gray-300 to-gray-400 font-bold text-2xl mr-2"></p>
                     </div>
                 </div>
 

@@ -121,6 +121,10 @@ button:focus-visible {
   color: #E07B39;
 
 }
+/* image modal carousel for productlisting details */
+.image-carousel {
+  transition: transform 0.3s ease-in-out;
+}
 
 /* CHOOSE PLAN PAGE */
 
@@ -198,6 +202,12 @@ div[class$="-plan"]:hover {
 }
 
 /* Button styles */
+.x-mark-image-zoomed{
+  color: white !Important; /* Default color - white */
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+}
+
 .btn-signup {
   background-color: #fcc178;
   color: white;

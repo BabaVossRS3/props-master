@@ -119,7 +119,7 @@ const MyListings = ({ setTotalListings }) => {
             <div key={index}>
               <ProductItem className="" product={item} />
               <div className="p-2 mt-3 rounded-lg flex justify-between gap-3">
-                <Link to={`/addListing?mode=edit&id=${item.id}`} className="w-full">
+                <Link to={`/BasicListing?mode=edit&id=${item.id}`} className="w-full">
                   <Button className="bg-[#f6731b] hover:bg-[#fe6e1a] hover:scale-105 transition-all text-white font-light w-full">
                     Επεξεργασία
                   </Button>
