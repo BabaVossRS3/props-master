@@ -1,0 +1,110 @@
+.myListings-container {
+    /* No specific styles required for the container */
+  }
+  
+  .myListings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .myListings-title {
+    font-weight: bold;
+    font-size: 1.5rem; /* 4xl equivalent */
+  }
+  
+  .myListings-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem; /* Equivalent of p-4 */
+  }
+  
+  .myListings-newListingButton {
+    padding: 1.75rem 3.5rem !important; /* Equivalent of px-14 py-7 */
+    font-size: 1.3rem !important;
+  }
+  .myListings-newListingButton:hover{
+    background-color: #f6731b !important;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    transform: scale(1.05);
+    width: 100%;
+  }
+  
+  .myListings-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Default 2 columns */
+    gap: 1.25rem; /* Equivalent of gap-5 */
+    margin-top: 1.75rem; /* Equivalent of mt-7 */
+  }  
+  
+  .myListings-productItem {
+    /* Specific styles for product items */
+  }
+  
+  .myListings-actions {
+    padding: 0.5rem;
+    margin-top: 0.75rem;
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+  
+  .myListings-link {
+    width: 100%;
+  }
+  
+  .myListings-editButton {
+    background-color: #f6731b;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    width: 100%;
+  }
+  
+  .myListings-editButton:hover {
+    background-color: #fe6e1a !important;
+    transform: scale(1.05);
+  }
+  
+  .myListings-deleteButton {
+    /* Delete button styles if needed */
+  }
+  
+  @media (max-width: 468px) { /* For screens smaller than 468px */
+    .myListings-grid {
+      grid-template-columns: repeat(1, 1fr); /* 1 column on small screens */
+    }
+    .myListings-actions {
+      gap: 0;
+      width: 100%;
+      justify-content: space-around !Important;
+    }
+    .myListings-link {
+      width: 35%;
+    }
+    .myListings-header{
+      width: 100%;
+    }
+    .myListings-container {
+      width: 100%; 
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-top: 3rem;
+    }
+    .myListings-editButton {
+      width: 100%;
+    }
+    .myListings-newListingButton {
+      font-size: 0.8rem;
+      padding: 2rem 1rem !important;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .myListings-grid {
+      grid-template-columns: repeat(3, 1fr); /* 3 columns on large screens */
+    }
+  }
+  

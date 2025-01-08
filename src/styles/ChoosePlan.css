@@ -1,0 +1,193 @@
+/* Container */
+.choosePlan-container {
+    display: flex;
+    gap: 2rem;
+    padding: 2rem;
+    align-items: center;
+    width: 100%;
+    justify-content: center; /* Center carousel container horizontally */
+    position: relative;
+    overflow: hidden;
+  }
+/* Carousel */
+.choosePlan-carousel {
+    display: flex;
+    justify-content: space-around; /* Distribute space evenly between slides */
+    align-items: flex-start; /* Align slides to the start */
+    gap: 2%; /* Add space between slides */
+    margin: 0 auto; /* Center the carousel horizontally */
+    transition: transform 0.5s ease-in-out; /* Smooth sliding transition */
+}
+
+/* Plan Box */
+.choosePlan-basicPlan, 
+.choosePlan-boostPlan, 
+.choosePlan-boostPlusPlan {
+    padding: 2rem;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: transform 0.3s;
+}
+
+.choosePlan-basicPlan:hover,
+.choosePlan-boostPlan:hover,
+.choosePlan-boostPlusPlan:hover {
+    transform: scale(1.05);
+}
+
+/* Titles and Highlights */
+.choosePlan-title {
+    font-size: 1.3rem;
+    text-align: center;
+    color: #555;
+    margin-bottom: 1rem;
+    width: 100% !important;
+}
+
+.choosePlan-highlight {
+    display: inline-block;
+    font-size: 2rem !important;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.choosePlan-basicHighlight {
+    color: #6c757d;
+    font-family: 'Inter', sans-serif; 
+    font-weight: bold;
+    font-size: 1.7rem !important;
+}
+
+.choosePlan-boostHighlight {
+    background: linear-gradient(to right, #60a5fa, #3b82f6, #2563eb); 
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: 'Inter', sans-serif; 
+    font-weight: bold;
+    font-size: 1.7rem !important;
+}
+
+.choosePlan-boostPlusHighlight {
+    background: linear-gradient(to right, #facc15, #f97316, #dc2626); 
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: 'Dancing Script', cursive; 
+    margin-left: 0.5rem; 
+    font-weight: bold;
+    font-size: 1.7rem !important;
+}
+
+/* Separator */
+.choosePlan-separator {
+    margin: 1rem 0;
+    border: none;
+    border-top: 2px solid #eee;
+}
+
+/* Side Title */
+.choosePlan-sideTitle {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    color: #555;
+}
+
+/* Features List */
+.choosePlan-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem 0;
+    color: #333;
+}
+
+.choosePlan-features li {
+    margin-bottom: 0.5rem;
+    position: relative; /* To position the checkmark */
+    padding-left: 1.5rem; /* Space for the checkmark */
+}
+
+.choosePlan-features li::before {
+    content: '\2713'; /* Unicode checkmark character */
+    position: absolute;
+    left: 0; /* Align the checkmark to the left of the li */
+    top: 50%; /* Vertically center the checkmark */
+    transform: translateY(-50%); /* Adjust the vertical alignment */
+    color: #fcc178; /* Green checkmark color */
+    font-size: 1.2rem; /* Adjust the size of the checkmark */
+}
+
+/* Price */
+.choosePlan-price {
+    font-size: 1.25rem;
+    font-weight: light;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.choosePlan-priceAmount {
+    font-size: 1.5rem;
+    color: #ff5722;
+    font-weight: bold;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+/* Buttons */
+.choosePlan-button {
+    padding: 0.75rem 1.5rem;
+    background: #ff5722;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.choosePlan-button:hover {
+    background: #fcc178;
+}
+
+/* Slides */
+.choosePlan-slide {
+    width: 28%; /* Each slide takes up 28% of the container width */
+    flex-shrink: 0; /* Prevent shrinking */
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s ease;
+  }
+
+.choosePlan-slide:hover {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Larger shadow on hover */
+    transform: scale(1.05); /* Slightly scale up for effect */
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out; /* Smooth transition */
+    cursor: pointer;
+}
+
+/* Mobile Styles */
+@media (max-width: 468px) {
+    .choosePlan-carousel {
+        display: flex;
+        width: 100%; /* Ensure full width plus the margin space */
+    }
+
+    .choosePlan-slide {
+        flex-shrink: 0; /* Prevent shrinking, so each slide stays the same size */
+        width: 98%; /* Each slide should take up the full width of the container */
+        text-align: center;
+        margin-right: 10px; /* Add space between slides */
+    }
+
+    /* Optional: Center the text and price inside the slide */
+    .choosePlan-title,
+    .choosePlan-price {
+        text-align: center;
+    }
+}

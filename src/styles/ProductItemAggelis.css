@@ -1,0 +1,117 @@
+
+/* product-item aggelies */
+.product-item-aggelies {
+    display: flex;
+    justify-content: stretch;
+    max-width: 100%;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    background-color: #f8f8f8;
+    position: relative;
+  }
+  
+  .product-item-aggelies img {
+    width: 40%;
+    height: auto;
+    object-fit: cover;
+    border-radius:  12px 0 0 12px ;
+    padding-right: 10px;
+  }
+  .product-item-aggelies .right-side-aggelies{
+    width: 100%;
+  }
+  .product-item-aggelies .title-h2{
+    text-align: center;
+    color: #242424;
+    font-weight: 700;
+    padding: 25px;
+    width: 100%;
+  }
+  .product-item-aggelies .content {
+    padding: 30px;
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: start;
+    color: #242424;
+  }
+  .product-item-aggelies .content-category{
+    display: flex;
+    padding-right: 10px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .product-item-aggelies .button-div-price-aggelies{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @media (max-width: 768px){
+    /* product item aggelies */
+    .product-item-aggelies {
+        flex-direction: column;
+        align-items: center;
+        padding: 15px;
+        max-width: 100%;
+    }
+    .product-item-aggelies .title-h2{
+      width: 100%;
+      font-size: 0.8em !important;
+    }
+    .polisi-enoikiash{
+      opacity:0.8;
+      top: 0;
+      left: 0;
+    }
+
+    .product-item-aggelies img {
+        width: 40%;
+        margin-bottom: 15px;
+        border-radius: 10%;
+    }
+
+    .product-item-aggelies .right-side-aggelies {
+        width: 100%;
+        text-align: center;
+    }
+
+    .product-item-aggelies .content {
+        padding: 20px;
+        flex-direction: row ;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .product-item-aggelies .content-category {
+        margin-bottom: 15px;
+        padding-right: 0;
+    }
+
+    .product-item-aggelies .button-div-price-aggelies {
+        flex-direction: row;
+        margin-top: 15px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .product-item-aggelies .title-h2 {
+        font-size: 1.3em;
+        padding: 10px;
+      }
+    
+      .product-item-aggelies .content {
+        padding: 15px;
+      }
+    
+      .product-item-aggelies .content-category {
+        font-size: 0.9em;
+        margin-bottom: 10px;
+      }
+    
+      .product-item-aggelies .button-div-price-aggelies {
+        font-size: 0.9em;
+      }
+  }

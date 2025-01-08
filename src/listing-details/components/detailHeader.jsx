@@ -12,13 +12,13 @@ import { IoIosColorFill } from "react-icons/io";
 
 const DetailHeader = ({ productDetail }) => {
     return (
-      <div>
+      <div className=''>
         {productDetail?.listingTitle ? (
           <div className="">
-            <h2 className="text-4xl font-bold">{productDetail?.listingTitle}</h2>
+            <h2 className="listing-title-detail-header text-4xl font-bold">{productDetail?.listingTitle}</h2>
             <Separator className="flex justify-center h-[1px] w-1/3 mt-3 bg-gradient-to-r from-transparent via-[#e38434] to-transparent" />
   
-            <div className="flex gap-2 mt-3">
+            <div className="flex gap-2 mt-3 detail-header-container">
               <div className="flex gap-2 items-center p-1 px-3 bg-orange-100 rounded-full mt-3 text-primary">
                 <MdOutlineCalendarMonth className="h-7 w-7" />
                 <h2 className="text-primary">{productDetail?.year}</h2>

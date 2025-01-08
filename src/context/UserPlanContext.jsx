@@ -1,12 +1,12 @@
-// src/context/UserPlanContext.js
+// src/context/UserPlanContext.jsx
 import React, { createContext, useContext, useState } from 'react';
 
-// Create Context for userPlan
+// Create the context
 const UserPlanContext = createContext();
 
-// Provide the Context to the components
+// The provider component that wraps your app
 export const UserPlanProvider = ({ children }) => {
-  const [userPlan, setUserPlan] = useState('');
+  const [userPlan, setUserPlan] = useState(''); // Initialize with an empty plan or default value
 
   return (
     <UserPlanContext.Provider value={{ userPlan, setUserPlan }}>
@@ -15,7 +15,7 @@ export const UserPlanProvider = ({ children }) => {
   );
 };
 
-// Custom Hook to use the UserPlan context
+// Custom hook to access the user plan in other components
 export const useUserPlan = () => {
   return useContext(UserPlanContext);
 };

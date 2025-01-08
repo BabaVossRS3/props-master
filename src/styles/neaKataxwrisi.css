@@ -1,0 +1,66 @@
+/* neaKataxwrisi-profile-container */
+.neaKataxwrisi-profile-container {
+    /* Any global styling if required */
+  }
+  
+  /* neaKataxwrisi-tabs-wrapper */
+  .neaKataxwrisi-tabs-wrapper {
+    padding: 2.5rem 5rem;
+    margin-top: 2.5rem;
+  }
+  
+  /* neaKataxwrisi-tabs */
+  .neaKataxwrisi-tabs {
+    width: 100%;
+  }
+  
+  /* neaKataxwrisi-tabs-list */
+  .neaKataxwrisi-tabs-list {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    background-color: #f6a500;  /* Orange-100 equivalent */
+    outline: none;
+  }
+  
+  /* neaKataxwrisi-tabs-trigger */
+  .neaKataxwrisi-tabs-trigger {
+    color: #fff;
+    background-color: #f97316; /* Orange-300 equivalent */
+    margin-left: 1rem;
+    margin-right: 1rem;
+    padding: 0.5rem 1.5rem;
+    cursor: pointer;
+  }
+  
+  /* neaKataxwrisi-tabs-content */
+  .neaKataxwrisi-tabs-content {
+    margin-top: 2.5rem;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .neaKataxwrisi-tabs-wrapper {
+      padding: 0.5rem 2rem;
+      padding-bottom: 2rem;
+    }
+    .neaKataxwrisi-tabs-list {
+      flex-direction: row;
+      padding-top: 0.7rem !Important;
+      padding-left: 2rem !Important;
+      padding-right: 2rem !Important;
+      margin-bottom: 0 !Important;
+    }
+    .neaKataxwrisi-tabs-trigger {
+      margin-left: 0;
+      margin-right: 0;
+      margin-bottom: 0.5rem;
+      width: 100%;
+    }
+  }
+  @media (max-width: 468px){
+    .neaKataxwrisi-tabs-list {
+      width: 100%;
+    }
+  }
+  

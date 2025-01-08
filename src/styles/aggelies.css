@@ -1,0 +1,178 @@
+/* Container and layout */
+.aggelies-container {
+    margin-bottom: 2.5rem;
+  }
+  
+  .aggelies-main-content {
+    display: flex;
+  }
+  
+  /* Sidebar styles */
+  .aggelies-sidebar {
+    width: 25%;
+    padding: 1.5rem;
+    border-right: 1px solid #ddd;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  
+  .aggelies-sidebar-title {
+    font-weight: 300;
+    font-size: 2.5rem;
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
+  }
+  
+  .aggelies-categories-list {
+    width: 100%;
+  }
+  
+  .aggelies-category-item {
+    border: 1px solid #ddd;
+    display: flex;
+    gap: 0.75rem;
+    border-radius: 0.375rem;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .aggelies-category-item:hover {
+    background-color: #ffb84d;
+    color: #fff;
+    transform: scale(1.1);  
+
+  }
+  
+  .aggelies-selected-category {
+    background-color: #ffb84d;
+    color: #ffffff;
+  }
+  
+  .aggelies-category-image {
+    width: 2.1875rem;
+    height: 1.875rem;
+    filter: brightness(0) saturate(100%) invert(67%) sepia(49%) saturate(608%) hue-rotate(347deg) brightness(98%) contrast(94%);
+
+  }
+  .aggelies-category-images{
+    transition: filter 0.3s ease;
+    filter: brightness(0) saturate(100%) invert(67%) sepia(49%) saturate(608%) hue-rotate(347deg) brightness(98%) contrast(94%);
+
+  }
+  .category-images {
+    filter: brightness(0) saturate(100%) invert(67%) sepia(49%) saturate(608%) hue-rotate(347deg) brightness(98%) contrast(94%);
+    transition: filter 0.3s ease;
+  }
+  .category-images.active-category {
+    filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+  }
+  
+  .aggelies-category-name.active-category {
+    color: white;
+  }
+  
+  .aggelies-category-name {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+  }
+  
+  /* Product display */
+  .aggelies-product-display {
+    padding: 2.5rem;
+    width: 75%;
+  }
+  
+  .aggelies-category-title {
+    font-weight: 300;
+    font-size: 2.5rem;
+    padding-bottom: 1.5rem;
+  }
+  
+  .aggelies-product-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1.25rem;
+    margin-top: 1.75rem;
+  }
+  
+  .aggelies-placeholder {
+    height: 25rem;
+    border-radius: 0.75rem;
+    background-color: #cbd5e1;
+    animation: aggelies-pulse 1.5s infinite;
+    width: 18.75rem;
+  }
+  /* Default Sidebar (for large screens) */
+.aggelies-sidebar {
+    width: 25%;
+    padding: 1.5rem;
+    border-right: 1px solid #ddd;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  
+  /* Mobile Sidebar Button (only visible on mobile screens) */
+  .mobile-sidebar-toggle {
+    display: none;
+    background-color: #E78430;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 11;
+    border-radius: 0.375rem;
+    cursor: pointer;
+  }
+  
+  /* Mobile Responsive Styles */
+  @media (max-width: 768px) {
+    .aggelies-main-content {
+      flex-direction: column;
+    }
+  
+    .aggelies-sidebar {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: white;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+      transition: transform 0.3s ease;
+      transform: translateX(-100%);
+    }
+  
+    .aggelies-sidebar.open {
+      display: block;
+      transform: translateX(0);
+    }
+  
+    .mobile-sidebar-toggle {
+      display: block;
+    }
+  
+    .aggelies-product-display {
+      width: 100%;
+      padding: 1rem;
+    }
+  }
+  
+  /* Placeholder animation */
+  @keyframes aggelies-pulse {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  

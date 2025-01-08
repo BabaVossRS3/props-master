@@ -81,18 +81,16 @@ import OwnersDetails from '../components/OwnersDetails';
 import Footer from '@/components/Footer';
 import MostSearched from '@/components/MostSearched';
 
+
 const ListingDetail = () => {
-  // kartela proiontos
-  const { id } = useParams(); // Get the product id from the URL params
+  const { id } = useParams();
   const [productDetail, setProductDetail] = useState();
 
-  // Fetch the product details whenever the 'id' changes
   useEffect(() => {
     GetProductDetail();
-    window.scrollTo(0, 0);  // Scrolls to the top of the page when the component loads
-  }, [id]);  // Dependency array: the effect will run again whenever 'id' changes
+    window.scrollTo(0, 0);
+  }, [id]);
 
-  // Function to fetch product details
   const GetProductDetail = async () => {
     const result = await db
       .select()
@@ -105,33 +103,32 @@ const ListingDetail = () => {
   };
 
   return (
-    <div>
-      <Header />
-      <div className="p-20 md:px-20 text-[#e38434] font-light">
+    <>
+    <Header />
+    <div className="listingDetails-container">
+      
+      <div className="listingDetails-content">
         <DetailHeader productDetail={productDetail} />
-        <div className="grid grid-cols-1 md:grid-cols-3 w-full mt-10 gap-5">
-          {/* left */}
-          <div className="md:col-span-2">
-            {/* image */}
+        <div className="listingDetails-grid">
+          {/* Left Section */}
+          <div className="listingDetails-left">
             <ImageGallery productDetail={productDetail} />
-            {/* description */}
             <Description productDetail={productDetail} />
           </div>
-          {/* right */}
-          <div className="md:grid-cols-1">
-            {/* pricing */}
+          {/* Right Section */}
+          <div className="listingDetails-right">
             <Pricing productDetail={productDetail} />
-            {/* properties */}
             <Specification productDetail={productDetail} />
-            {/* stoixeia idiwth */}
             <OwnersDetails productDetail={productDetail} />
           </div>
         </div>
         <MostSearched />
       </div>
-      {/* Footer */}
-      <Footer />
+      
     </div>
+    <Footer />
+    </>
+    
   );
 };
 

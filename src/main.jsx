@@ -20,6 +20,8 @@ import ChoosePlan from './ChoosePlan'
 import BasicListing from './AddListing.jsx/BasicListing.jsx'
 import BoostListing from './AddListing.jsx/BoostListing'
 import BoostPlusListing from './AddListing.jsx/BoostPlusListing'
+import { UserPlanProvider } from './context/UserPlanContext'
+
 
 
 
@@ -83,12 +85,14 @@ if (!PUBLISHABLE_KEY) {
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-     <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
-        <CategoryProvider> {/* Add the CategoryProvider here */}
+    <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
+      <UserPlanProvider> 
+        <CategoryProvider> {/* Add CategoryProvider here */}
           <RouterProvider router={router} />
         </CategoryProvider>
-        <Toaster/>
-        <ScrollToTopButton/>
-     </ClerkProvider>
-  </StrictMode>,
-)
+        <Toaster /> {/* Global Toast notifications */}
+        <ScrollToTopButton /> {/* Scroll to top button */}
+      </UserPlanProvider>
+    </ClerkProvider>
+  </StrictMode>
+);

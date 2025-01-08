@@ -11,3 +11,7 @@ for icons we use react library
 for database dashboard we use Drizzle and Neon
 for images we use firebase to ulpoad  5gb/free storage
 for chat we use sendbird and axios
+
+
+
+We left it where the user info about the plan is passing and fteching but we need to fix that when the user is already on a plan the chooseplan page will not appear anymore

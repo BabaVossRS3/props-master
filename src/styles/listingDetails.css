@@ -1,0 +1,106 @@
+/* Container styles */
+.listingDetails-container {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Content section */
+.listingDetails-content {
+    padding: 2rem; /* Default padding for larger screens */
+    color: #e38434;
+    font-weight: 300;
+}
+
+/* Grid Layout */
+.listingDetails-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* Two columns by default */
+    gap: 1.25rem;
+    margin-top: 2.5rem;
+}
+
+/* Left Section */
+.listingDetails-left {
+    grid-column: span 1;
+}
+
+/* Right Section */
+.listingDetails-right {
+    grid-column: span 1;
+}
+
+/* Utility classes for spacing and responsive layout */
+.listingDetails-content > * {
+    margin-bottom: 2rem; /* Space between child elements */
+}
+
+/* Detail Header */
+.detail-header-container {
+    display: block; /* Visible by default */
+}
+
+/* Medium Screen Adjustments */
+@media (min-width: 768px) {
+    .listingDetails-content {
+        padding: 3rem; /* Increased padding for medium screens */
+    }
+
+    .listingDetails-grid {
+        grid-template-columns: 2fr 1fr; /* Two columns layout remains */
+    }
+
+    .listingDetails-content > * {
+        margin-bottom: 2.5rem; /* Adjusted spacing */
+    }
+}
+
+/* Small Screen Adjustments */
+@media (max-width: 468px) {
+    .listingDetails-content {
+        padding: 1rem; /* Reduced padding for smaller screens */
+        font-size: 0.9rem; /* Slightly smaller font size */
+        line-height: 1.5; /* Adjust line height */
+    }
+    .listing-title-detail-header{
+        font-size: 1.5rem !important;
+    }
+    .listingDetails-grid {
+        grid-template-columns: 1fr; /* Single-column layout */
+        gap: 1.5rem; /* Increased spacing for better separation */
+    }
+
+    .listingDetails-left {
+        padding-right: 0; /* No extra spacing for small screens */
+    }
+    .image-gallery{
+        margin-top: 5rem;
+        margin-bottom: 2rem;
+        flex-direction: column-reverse !important;
+    }
+
+    .listingDetails-right {
+        padding-left: 0; /* No extra spacing for small screens */
+    }
+
+    .listingDetails-button {
+        padding: 0.6rem 1.2rem; /* Smaller buttons for small screens */
+        font-size: 0.9rem; /* Adjust font size for better fit */
+    }
+
+    .listingDetails-left .image-gallery {
+        max-height: 300px; /* Restrict image height for smaller screens */
+    }
+
+    .listingDetails-right .specifications {
+        margin-top: 1rem; /* Adjust spacing for compact layout */
+    }
+
+    .listingDetails-right .owners-details {
+        margin-top: 1rem;
+    }
+
+    /* Detail Header Component */
+    .detail-header-container {
+        display: none !important; /* Hidden on small screens */
+    }
+}

@@ -9,8 +9,9 @@ const Description = ({productDetail}) => {
         <Separator className='w-1 p-2'/>
         <p className='text-[#242424] text-[17px]'>{productDetail?.listingdescription}</p>
       </div>:
-      <div className="w-full h-[100px] mt-7 bg-orange-100 animate-pulse">
-
+      <div className="w-full h-[100px] mt-7">
+        <h2 className='text-2xl mb-3'>Περιγραφή</h2>
+        <h2 className='text-gray-500'>Ο Πωλητής δεν πρόσθεσε κάποια περιγραφή.</h2>
       </div>}
     </div>
   )

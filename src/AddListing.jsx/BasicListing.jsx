@@ -23,48 +23,49 @@ import features from './../Shared/features.json'
 import { Checkbox } from '@radix-ui/react-checkbox'
 
 
-
-
 const BasicListing = () => {
-
-  const [formData,setFormData] = useState([])
-  const [triggerUploadImages,setTriggerUploadImages] = useState();
+  const [formData, setFormData] = useState([]);
+  const [triggerUploadImages, setTriggerUploadImages] = useState();
   const [searchParams] = useSearchParams();
-  const [loader,setLoader]=useState(false);
-  const [productInfo,setProductInfo] = useState();
-  const navigate=useNavigate();
+  const [loader, setLoader] = useState(false);
+  const [productInfo, setProductInfo] = useState();
+  const navigate = useNavigate();
   const { toast } = useToast();
-  const {user} =useUser();
+  const { user } = useUser();
 
-  const mode = searchParams.get('mode');
-  const recordId = searchParams.get('id');
+  const mode = searchParams.get("mode");
+  const recordId = searchParams.get("id");
 
-  useEffect(()=>{
-    if(mode=='edit'){
+  useEffect(() => {
+    if (mode === "edit") {
       GetListingDetail();
     }
-  },[]);
+  }, []);
 
-  const GetListingDetail =async() =>{
-    const result=await db.select().from(ProductListing).innerJoin(ProductImages,eq(ProductListing.id,ProductImages.ProductListingId)).where(eq(ProductListing.id,recordId));
+  const GetListingDetail = async () => {
+    const result = await db
+      .select()
+      .from(ProductListing)
+      .innerJoin(ProductImages, eq(ProductListing.id, ProductImages.ProductListingId))
+      .where(eq(ProductListing.id, recordId));
 
-
-    const resp=Service.FormatResult(result);
+    const resp = Service.FormatResult(result);
     setProductInfo(resp[0]);
-    setFormData(resp[0])
+    setFormData(resp[0]);
     console.log(resp);
-  }
+  };
 
-
-  const handleInputChange=(name,value)=>{
-    setFormData((prevData)=>({
+  const handleInputChange = (name, value) => {
+    setFormData((prevData) => ({
       ...prevData,
-      [name]:value
-    }))
+      [name]: value,
+    }));
+  };
 
-  }
-  console.log('Form data being sent:', formData);
-  const onSubmit= async(e)=>{
+  console.log("Form data being sent:", formData);
+  console.log("User data:", user);
+
+  const onSubmit = async (e) => {
     console.log("Data being sent to the backend:", formData);
 
     setLoader(true);
@@ -72,120 +73,119 @@ const BasicListing = () => {
     toast({
       title: "Παρακαλώ Περιμένετε...",
       description: "Η Αγγελία σας ανεβαίνει",
-    })
+    });
 
+    // Add the user plan to the form data
+    const formDataWithPlan = {
+      ...formData,
+      userPlan: "Basic", // Add the user plan with 'Basic' value
+      createdBy: user?.primaryEmailAddress?.emailAddress,
+      userName: user?.fullName,
+      userImageUrl: user?.imageUrl,
+      clerkUserId: user.id,
+      postedOn: moment().format("DD/MM/YYYY"),
+    };
 
-    if(mode=='edit'){
-        const result  = await db.update(ProductListing).set({
-          ...formData,
-            createdBy: user?.primaryEmailAddress?.emailAddress,
-            userName: user?.fullName,
-            userImageUrl: user?.profileImageUrl,
-            postedOn: moment().format('DD/MM/YYYY')
-        }).where(eq(ProductListing.id,recordId)).returning({id:ProductListing.id});
-        navigate('/profile')
+    if (mode === "edit") {
+      const result = await db
+        .update(ProductListing)
+        .set(formDataWithPlan)
+        .where(eq(ProductListing.id, recordId))
+        .returning({ id: ProductListing.id });
+
+      navigate("/profile");
+      setLoader(false);
+
+      if (result) {
+        console.log("Data Saved");
+        setTriggerUploadImages(result[0]?.id);
         setLoader(false);
+        toast({
+          title: "Η Αγγελία σας Ανέβηκε επιτυχώς",
+          className: "bg-green-500 text-white",
+          duration: 5000,
+        });
+      }
+    } else {
+      try {
+        const result = await db
+          .insert(ProductListing)
+          .values(formDataWithPlan)
+          .returning({ id: ProductListing.id });
 
-        if(result){
-          console.log("Data Saved")
+        if (result) {
+          console.log("Data Saved");
           setTriggerUploadImages(result[0]?.id);
           setLoader(false);
           toast({
-            title: "Η Αγγελία σας Ανέβηκε επιτυχώς", 
+            title: "Η Αγγελία σας Ανέβηκε επιτυχώς",
             className: "bg-green-500 text-white",
-            duration: 5000,  
           });
         }
-    }
-    else{
-      try{
-              const result = await db.insert(ProductListing)
-          .values({
-            ...formData,
-            createdBy: user?.primaryEmailAddress?.emailAddress,
-            userImageUrl:user?.imageUrl,
-            postedOn: moment().format('DD/MM/YYYY')
-          })
-          .returning({ id: ProductListing.id });
-
-          if(result){
-            console.log("Data Saved")
-            setTriggerUploadImages(result[0]?.id);
-            setLoader(false);
-            toast({
-              title: "Η Αγγελία σας Ανέβηκε επιτυχώς",
-              className: "bg-green-500 text-white"    
-            });
-          }
-      }catch(e) {
+      } catch (e) {
         console.log("Error", e);
         toast({
           variant: "destructive",
-          title: "Κάτι Πήγε στραβά",  
-          description: "Παρακαλώ συμπληρώστε όλα τα πεδία με τα σωστά τους στοιχεία"
+          title: "Κάτι Πήγε στραβά",
+          description: "Παρακαλώ συμπληρώστε όλα τα πεδία με τα σωστά τους στοιχεία",
         });
         setLoader(false);
       }
     }
-  }
-    
+  };
 
   return (
     <div>
       <Header />
       <div className="px-10 md:px-20 my-10">
-        <h2 className='font-bold text-4xl'>Νέα Αγγελία
-        </h2>
+        <h2 className="font-bold text-4xl">Νέα Αγγελία</h2>
         <form className="p-10 border rounded-xl mt-10">
           {/* {Στοιχεία Προΐοντος} */}
           <div className="">
-            <h2 className='font-md text-xl mb-6 '>Περιγραφή Προΐοντος</h2>
+            <h2 className="font-md text-xl mb-6 ">Περιγραφή Προΐοντος</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {productDetails.productDetail.map((item, index) => (
                 <div key={index} className="">
-                  <label className='text-sm flex items-center gap-2 mb-2'>
-                    <IconField icon={item?.icon} /> {item?.label} {item.required && <span className='text-red-500'>*</span>}
+                  <label className="text-sm flex items-center gap-2 mb-2">
+                    <IconField icon={item?.icon} /> {item?.label} {item.required && <span className="text-red-500">*</span>}
                   </label>
-                  
-                  {item.fieldType === 'text' || item.fieldType === 'number' ? (
+
+                  {item.fieldType === "text" || item.fieldType === "number" ? (
                     <InputField item={item} handleInputChange={handleInputChange} productInfo={productInfo} />
-                  ) : item.fieldType === 'dropdown' ? (
+                  ) : item.fieldType === "dropdown" ? (
                     <DropdownField item={item} handleInputChange={handleInputChange} productInfo={productInfo} />
-                  ) : item.fieldType === 'textarea' ? (
-                    <TextAreaField item={item} handleInputChange={handleInputChange} productInfo={productInfo} />
-                  ) : item.fieldType === 'tel' ? (
+                  ) : item.fieldType === "textarea" ? (
+                    <TextAreaField plan={"Basic"} item={item} handleInputChange={handleInputChange} productInfo={productInfo} />
+                  ) : item.fieldType === "tel" ? (
                     <InputField item={item} handleInputChange={handleInputChange} productInfo={productInfo} />
                   ) : null}
                 </div>
               ))}
             </div>
           </div>
-  
+
           {/* Eikones */}
-          <Separator className='my-6' />
-          <UploadImages 
-            triggerUploadImages={triggerUploadImages} 
-            productInfo={productInfo} 
-            mode={mode} 
-            setLoader={(v) => { 
-              setLoader(v); 
-              navigate('/'); 
-            }} 
+          <Separator className="my-6" />
+          <UploadImages
+            triggerUploadImages={triggerUploadImages}
+            plan="Basic"
+            productInfo={productInfo}
+            mode={mode}
+            setLoader={(v) => {
+              setLoader(v);
+              navigate("/");
+            }}
           />
-          
+
           <div className="mt-10 flex justify-end">
-            <Button 
-              type='button' 
-              disabled={loader} 
-              onClick={(e) => onSubmit(e)}
-            >
-              {!loader ? 'Ανάρτηση' : <BiLoaderAlt className='text-[#fff] animate-spin text-lg' />}
+            <Button type="button" disabled={loader} onClick={(e) => onSubmit(e)}>
+              {!loader ? "Ανάρτηση" : <BiLoaderAlt className="text-[#fff] animate-spin text-lg" />}
             </Button>
           </div>
         </form>
       </div>
     </div>
   );
-}
+};
 
 export default BasicListing;
