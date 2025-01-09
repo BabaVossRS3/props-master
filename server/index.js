@@ -1,34 +1,45 @@
 import express from 'express';
-import dotenv from 'dotenv';
+import Stripe from 'stripe';
 import cors from 'cors';
-import checkoutRoutes from './api/create-checkout-session.js';
+import dotenv from 'dotenv';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
-dotenv.config();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+dotenv.config({ path: '../.env.local' });
 
 const app = express();
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-// Webhook endpoint must come before express.json() middleware
-app.post('/api/webhooks/stripe', 
-  express.raw({type: 'application/json'}),
-  // your webhook handler
-);
+app.use(cors({
+ origin: 'http://localhost:5174'
+}));
 
-// Regular middleware
-app.use(cors());
 app.use(express.json());
 
-// Routes
-app.use('/api', checkoutRoutes);
+app.post('/api/create-checkout-session', async (req, res) => {
+  try {
+    const { priceId, userId, userEmail, planName } = req.body;
+    
+    const successPath = planName === 'Boost' ? 'BoostListing' : 'BoostPlusListing';
 
-// Error handling middleware
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({ 
-    error: 'Something went wrong!' 
-  });
+    const session = await stripe.checkout.sessions.create({
+      mode: 'subscription',
+      line_items: [{ price: priceId, quantity: 1 }],
+      success_url: `http://localhost:5174/${successPath}?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `http://localhost:5174/choosePlan`,
+      customer_email: userEmail,
+      metadata: { userId, planName }
+    });
+
+    res.json({ sessionId: session.id });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: error.message });
+  }
 });
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+const PORT = 3001;
+app.listen(PORT, () => console.log(`Server running on ${PORT}`));

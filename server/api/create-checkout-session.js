@@ -1,47 +1,41 @@
 import express from 'express';
-import Stripe from 'stripe';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import morgan from 'morgan';
 
-const router = express.Router();
-const stripe = new Stripe(process.env.STRIPE_SECRET_TEST_KEY);
+dotenv.config();
 
-router.post('/create-checkout-session', async (req, res) => {
+const app = express();
+
+// Logging middleware
+app.use(morgan('dev'));
+app.use(cors());
+app.use(express.json());
+
+// Test endpoint
+app.get('/api/test', (req, res) => {
+  res.json({ status: 'ok' });
+});
+
+app.post('/api/create-checkout-session', (req, res) => {
   try {
-    const { priceId, userId, userEmail, planName } = req.body;
+    console.log('Received request');
+    console.log('Body:', req.body);
+    console.log('Headers:', req.headers);
+    console.log('Stripe key exists:', !!process.env.STRIPE_SECRET_KEY);
 
-    if (!priceId || !userId || !userEmail || !planName) {
-      return res.status(400).json({ 
-        error: 'Missing required fields' 
-      });
+    if (!process.env.STRIPE_SECRET_KEY) {
+      throw new Error('STRIPE_SECRET_KEY is missing');
     }
 
-    // Create Stripe checkout session
-    const session = await stripe.checkout.sessions.create({
-      mode: 'subscription',
-      payment_method_types: ['card'],
-      line_items: [
-        {
-          price: priceId,
-          quantity: 1,
-        },
-      ],
-      success_url: `${process.env.VITE_APP_URL}/subscription/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.VITE_APP_URL}/choose-plan`,
-      customer_email: userEmail,
-      metadata: {
-        userId,
-        planName,
-      },
-    });
-
-    res.status(200).json({ 
-      sessionId: session.id 
-    });
+    res.json({ test: true });
   } catch (error) {
-    console.error('Checkout session error:', error);
-    res.status(500).json({ 
-      error: error.message 
-    });
+    console.error('Error:', error);
+    res.status(500).json({ error: error.message });
   }
 });
 
-export default router;
+const PORT = 5174;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});

@@ -436,69 +436,50 @@ const ChoosePlan = () => {
   
     try {
       const plan = plans.find(p => p.name === planName);
-      console.log('Selected plan:', plan); // Debug log
-      
       if (plan.name === 'Basic') {
-        // Handle free plan
         const updatedPlan = await updateUserPlan(user.id, planName);
         if (updatedPlan) {
           setUserPlan(planName);
           navigate('/BasicListing');
         }
-      } else {
-        // Create Stripe Checkout Session for paid plans
-        const requestData = {
+        return;
+      }
+  
+      const response = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
           priceId: plan.priceId,
           userId: user.id,
           userEmail: user.emailAddresses[0].emailAddress,
           planName: planName
-        };
-        
-        console.log('Sending request data:', requestData); // Debug log
+        })
+      });
   
-        const response = await fetch('/api/create-checkout-session', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(requestData),
-        });
-  
-        console.log('Response status:', response.status); // Debug log
-        
-        if (!response.ok) {
-          const errorText = await response.text();
-          console.error('Error response:', errorText); // Debug log
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-  
-        const data = await response.json();
-        console.log('Response data:', data); // Debug log
-        
-        // Redirect to Stripe Checkout
-        const stripe = await stripePromise;
-        const { error } = await stripe.redirectToCheckout({ 
-          sessionId: data.sessionId 
-        });
-        
-        if (error) {
-          console.error('Stripe error:', error); // Debug log
-          throw new Error(error.message);
-        }
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Server error:', response.status, errorText);
+        throw new Error(`Request failed with status: ${response.status}`);
       }
+  
+      const data = await response.json();
+      console.log('Checkout session created:', data);
+  
+      const stripe = await stripePromise;
+      await stripe.redirectToCheckout({ sessionId: data.sessionId });
+  
     } catch (error) {
-      console.error('Error processing subscription:', error);
+      console.error('Error:', error);
       toast({
         variant: 'destructive',
         title: "Σφάλμα",
-        description: "Υπήρξε πρόβλημα με την επεξεργασία της συνδρομής.",
+        description: error.message,
         duration: 5000,
       });
     } finally {
       setLoading(false);
     }
   };
-
   // Mobile touch handlers
   const handleTouchStart = (e) => {
     touchStartX.current = e.touches[0].clientX;

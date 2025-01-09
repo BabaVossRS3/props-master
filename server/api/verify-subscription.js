@@ -2,7 +2,7 @@ import Stripe from 'stripe';
 import { db } from '../../db/index.js';
 import { UserPlan } from '../../db/schema.js';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_TEST_KEY);
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {

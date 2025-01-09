@@ -21,6 +21,7 @@ import BasicListing from './AddListing.jsx/BasicListing.jsx'
 import BoostListing from './AddListing.jsx/BoostListing'
 import BoostPlusListing from './AddListing.jsx/BoostPlusListing'
 import { UserPlanProvider } from './context/UserPlanContext'
+import SubscriptionSuccess from './SuccessPage'
 
 
 
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
   {
     path: '/BoostPlusListing',
     element: <BoostPlusListing/>
+  },
+  {
+    path: "/subscription/success",
+    element: <SubscriptionSuccess />,
   },
   {
     path:'/search/:category',
