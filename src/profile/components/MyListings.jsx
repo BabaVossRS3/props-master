@@ -88,57 +88,56 @@ const MyListings = ({ setTotalListings }) => {
     }
   };
 
-  const handleAddNewListingClick = (e) => {
-    // Check if the plan is 'Basic' and user has 5 listings
+  const handleAddListing = (e) => {
+    // Check if the user exceeds listing limits based on their plan
     if (plan === 'Basic' && productList.length >= 5) {
       toast({
         variant: "destructive",
         title: `Υπέρβαση Ορίων Πλάνου Basic.`,
-        description: `Μπορείτε να Ανεβάσετε έως 5 Αγγελίες . Αναβαθμίστε το Πακέτο σας μέσω της καρτέλας προφίλ.`,
+        description: `Μπορείτε να Ανεβάσετε έως 5 Αγγελίες. Αναβαθμίστε το Πακέτο σας μέσω της καρτέλας προφίλ.`,
       });
       navigate('/choosePlan');
-      e.preventDefault(); 
-    } else if (plan === 'Boost' && productList.length >= 2) {
+      e?.preventDefault(); // Ensure event is optional
+      return;
+    } else if (plan === 'Boost' && productList.length >= 15) {
       toast({
         variant: "destructive",
         title: `Υπέρβαση Ορίων Πλάνου Boost.`,
-        description: `Μπορείτε να Ανεβάσετε έως 20 Αγγελίες . Αναβαθμίστε το Πακέτο σας μέσω της καρτέλας προφίλ.`,
+        description: `Μπορείτε να Ανεβάσετε έως 15 Αγγελίες. Αναβαθμίστε το Πακέτο σας μέσω της καρτέλας προφίλ.`,
       });
       navigate('/choosePlan');
-      e.preventDefault(); // Prevent navigation
-    } else {
-      // If the limit is not reached, allow navigation
-      const targetPath = getTargetPath();
-      navigate(targetPath);
+      e?.preventDefault(); // Ensure event is optional
+      return;
+    }
+  
+    // If user has no plan, prompt them to choose one
+    if (!userPlan) {
+      toast({
+        title: "Απαιτείται Συνδρομή",
+        description: "Παρακαλώ επιλέξτε ένα πακέτο για να προσθέσετε αγγελία.",
+        status: "warning",
+        duration: 5000,
+      });
+      navigate('/choosePlan');
+      return;
+    }
+  
+    // Navigate based on user's plan
+    switch (userPlan) {
+      case 'Basic':
+        navigate('/BasicListing');
+        break;
+      case 'Boost':
+        navigate('/BoostListing');
+        break;
+      case 'Boost+':
+        navigate('/BoostPlusListing');
+        break;
+      default:
+        navigate('/BasicListing');
     }
   };
-  const handleAddListing = () => {
-    if (!userPlan) {
-        toast({
-            title: "Απαιτείται Συνδρομή",
-            description: "Παρακαλώ επιλέξτε ένα πακέτο για να προσθέσετε αγγελία.",
-            status: "warning",
-            duration: 5000,
-        });
-        navigate('/choosePlan');
-        return;
-    }
-
-    // Navigate based on current plan
-    switch(userPlan) {
-        case 'Basic':
-            navigate('/BasicListing');
-            break;
-        case 'Boost':
-            navigate('/BoostListing');
-            break;
-        case 'Boost+':
-            navigate('/BoostPlusListing');
-            break;
-        default:
-            navigate('/BasicListing');
-    }
-};
+  
   if (loading) {
     return <div>Loading...</div>; // Show loading spinner or placeholder
   }

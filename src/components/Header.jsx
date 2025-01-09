@@ -191,6 +191,14 @@ const Header = () => {
         >
           Επικοινωνία
         </Link>
+        <SignedIn>
+          <Link
+            to="/profile?tab=my-listings"
+            className="menu-li font-medium text-lg hover:scale-105 transition-all cursor-pointer hover:text-primary"
+          >
+            Το Προφίλ Μου
+          </Link>
+        </SignedIn>
       </ul>
 
       {/* User Actions */}

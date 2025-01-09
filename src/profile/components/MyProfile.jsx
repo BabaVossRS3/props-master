@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import { cancelUserPlan } from './../../../configs/planManagment';
 
 
-const MyProfile = ({ totalListings }) => {
+const MyProfile = ({ totalListings, endDate }) => {
   const { setUserPlan, userPlan } = useUserPlan();
   const { user, isLoaded } = useUser();
   const [loading, setLoading] = useState(true);
@@ -36,7 +36,7 @@ const MyProfile = ({ totalListings }) => {
         navigate('/choosePlan');
     }, 2000);
 };
-  const calculateRemainingDays = (endDate) => {
+const calculateRemainingDays = (endDate) => {
     try {
         if (!endDate) {
             setRemainingDays(null);
@@ -200,14 +200,13 @@ useEffect(() => {
           setLoading(false);
       }
   };
-
   fetchUserPlanAndSubscriptionDate();
 
   // Check subscription status every minute
   const pollInterval = setInterval(fetchUserPlanAndSubscriptionDate, 60000);
   
   return () => clearInterval(pollInterval);
-}, [isLoaded, user, setUserPlan, navigate]);
+}, [isLoaded, user, setUserPlan, navigate, endDate]);
 
 
   if (!isLoaded || !user?.id) {

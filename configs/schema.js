@@ -40,3 +40,19 @@ export const UserPlan = pgTable('UserPlan', {
     endDate: timestamp('endDate'),
     isActive: boolean('isActive').notNull().default(true)
 });
+
+//Subscriptions 
+export const Subscriptions = pgTable('subscriptions', {
+    id: serial('id').primaryKey(),
+    userId: varchar('user_id').notNull().references(() => User.id),
+    status: varchar('status').notNull().default('inactive'), // active, inactive, past_due, canceled
+    planType: varchar('plan_type').notNull(), // Basic, Boost, Boost+
+    stripeSubscriptionId: varchar('stripe_subscription_id').unique(),
+    stripePriceId: varchar('stripe_price_id'),
+    stripeCurrentPeriodStart: timestamp('stripe_current_period_start'),
+    stripeCurrentPeriodEnd: timestamp('stripe_current_period_end'),
+    cancelAtPeriodEnd: boolean('cancel_at_period_end').default(false),
+    canceledAt: timestamp('canceled_at'),
+    createdAt: timestamp('created_at').defaultNow(),
+    updatedAt: timestamp('updated_at').defaultNow()
+  });
