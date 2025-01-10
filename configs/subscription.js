@@ -1,7 +1,7 @@
 import Stripe from 'stripe';
-import { db } from '../db/db';
+import { db } from './../configs/db.js';
 import { eq } from 'drizzle-orm';
-import { users, subscriptions } from '../db/schema';
+import { subscriptions } from './../configs/schema.js';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_TEST_KEY);
 

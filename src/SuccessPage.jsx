@@ -60,7 +60,7 @@ const SubscriptionSuccess = () => {
         duration: 5000,
       });
       // Redirect to choose plan on error
-      navigate('/choose-plan');
+      navigate('/choosePlan');
     }
   };
 

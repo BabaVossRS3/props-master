@@ -1,0 +1,10 @@
+DROP TABLE IF EXISTS "UserPlan";
+
+CREATE TABLE "UserPlan" (
+    "id" SERIAL PRIMARY KEY,
+    "userId" VARCHAR NOT NULL UNIQUE,
+    "plan" VARCHAR NOT NULL,
+    "startDate" DATE NOT NULL DEFAULT CURRENT_DATE,
+    "endDate" DATE,
+    "isActive" BOOLEAN NOT NULL DEFAULT true
+);

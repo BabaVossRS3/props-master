@@ -1,5 +1,5 @@
-import { pgTable, serial, varchar, timestamp, boolean, integer } from 'drizzle-orm/pg-core';
-
+import { pgTable, serial, varchar, timestamp, boolean, date, integer } from 'drizzle-orm/pg-core';
+import { sql } from 'drizzle-orm';
 // ProductListing Table
 export const ProductListing = pgTable('ProductListing', {
     id: serial('id').primaryKey(),
@@ -32,28 +32,29 @@ export const ProductImages = pgTable('productImages', {
 });
 
 // UserPlan Table
+
 export const UserPlan = pgTable('UserPlan', {
     id: serial('id').primaryKey(),
-    userId: varchar('userId').notNull(),
+    userId: varchar('userId').notNull().unique(),
     plan: varchar('plan').notNull(),
-    startDate: timestamp('startDate').notNull().defaultNow(),
-    endDate: timestamp('endDate'),
+    startDate: date('startDate').notNull().default(sql`CURRENT_DATE`),
+    endDate: date('endDate').default(sql`CURRENT_DATE + INTERVAL '30 days'`),
     isActive: boolean('isActive').notNull().default(true)
 });
 
-//Subscriptions 
+// Subscriptions Table
 export const Subscriptions = pgTable('subscriptions', {
     id: serial('id').primaryKey(),
-    userId: varchar('user_id').notNull().references(() => UserPlan.userId),
-    status: varchar('status').notNull().default('inactive'), // active, inactive, past_due, canceled
-    planType: varchar('plan_type').notNull(), // Basic, Boost, Boost+
-    stripeSubscriptionId: varchar('stripe_subscription_id').unique(),
-    stripePriceId: varchar('stripe_price_id'),
+    userId: varchar('user_id').notNull(), // Removed the reference since UserPlan.userId isn't a primary key
+    status: varchar('status', { length: 20 }).notNull().default('inactive'),
+    planType: varchar('plan_type', { length: 20 }).notNull(),
+    stripeSubscriptionId: varchar('stripe_subscription_id', { length: 100 }).unique(),
+    stripePriceId: varchar('stripe_price_id', { length: 100 }),
     stripeCurrentPeriodStart: timestamp('stripe_current_period_start'),
     stripeCurrentPeriodEnd: timestamp('stripe_current_period_end'),
     cancelAtPeriodEnd: boolean('cancel_at_period_end').default(false),
     canceledAt: timestamp('canceled_at'),
     createdAt: timestamp('created_at').defaultNow(),
     updatedAt: timestamp('updated_at').defaultNow(),
-  });
-  
+});
+

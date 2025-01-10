@@ -35,7 +35,7 @@ app.post('/api/create-checkout-session', (req, res) => {
   }
 });
 
-const PORT = 5174;
+const PORT = 5173;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

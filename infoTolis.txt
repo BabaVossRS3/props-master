@@ -14,4 +14,4 @@ for chat we use sendbird and axios
 
 
 
-We left it where the user info about the plan is passing and fteching but we need to fix that when the user is already on a plan the chooseplan page will not appear anymore
+we need to make the enddtae countdown from 30 days and make the profile variables update via new userplan , also we will start using the stripe in real time . We need to make sure also that the ...4 o clock see you monday buddie

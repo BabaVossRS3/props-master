@@ -60,7 +60,7 @@ const router = createBrowserRouter([
     element: <BoostPlusListing/>
   },
   {
-    path: "/subscription/success",
+    path: "/subscription-success",
     element: <SubscriptionSuccess />,
   },
   {

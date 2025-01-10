@@ -445,7 +445,7 @@ const ChoosePlan = () => {
         return;
       }
   
-      const response = await fetch('/api/create-checkout-session', {
+      const response = await fetch('http://localhost:3001/api/create-checkout-session', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -455,6 +455,7 @@ const ChoosePlan = () => {
           planName: planName
         })
       });
+      
   
       if (!response.ok) {
         const errorText = await response.text();

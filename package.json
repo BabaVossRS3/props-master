@@ -4,15 +4,16 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-  "dev": "vite",
-  "build": "vite build",
-  "lint": "eslint .",
-  "preview": "vite preview",
-  "db:push": "drizzle-kit push",
-  "db:studio": "drizzle-kit studio",
-  "server": "node server/index.js",
-  "dev:all": "concurrently \"npm run dev\" \"npm run server\""
-},
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio",
+    "db:generate":"drizzle-kit generate",
+    "server": "node server/index.js",
+    "dev:all": "concurrently \"npm run dev\" \"npm run server\""
+  },
   "dependencies": {
     "@clerk/clerk-react": "^5.19.2",
     "@electric-sql/pglite": "^0.2.14",
