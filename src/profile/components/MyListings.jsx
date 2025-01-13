@@ -3,33 +3,27 @@ import { Link } from 'react-router-dom'
 import { eq, desc } from 'drizzle-orm';
 import { Button } from '@/components/ui/button'
 import { db } from './../../../configs'
-import { ProductImages, ProductListing ,UserPlan } from './../../../configs/schema'
+import { ProductImages, ProductListing, UserPlan } from './../../../configs/schema'
 import { useUser } from '@clerk/clerk-react'
 import ProductItem from '@/components/ProductItem'
 import Service from './../../Shared/Service'
-import { IoTrashBin } from "react-icons/io5";
-import { AlertDialog } from '@radix-ui/react-alert-dialog';
 import DeleteListingButton from '@/AddListing.jsx/components/DeleteListing';
 import { useNavigate } from 'react-router-dom';
-import { useUserPlan } from '../../context/UserPlanContext'; // Adjust path if necessary
+import { useUserPlan } from '../../context/UserPlanContext';
 import { useToast } from "@/hooks/use-toast"
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { handleListingNavigation } from './../../../configs/handleListingNavigation';
 
 const MyListings = ({ setTotalListings }) => {
-  const { user } = useUser(); // Get the user from Clerk (or your authentication context)
+  const { user } = useUser();
   const [productList, setProductList] = useState([]);
-  const [plan, setPlan] = useState(null); // Initialize plan as null
-  const [loading, setLoading] = useState(true); // Loading state
+  const [loading, setLoading] = useState(true);
   const { toast } = useToast();
-  const { userPlan } = useUserPlan();
-  const navigate = useNavigate(); // Use navigate for programmatic navigation
+  const { userPlan, setUserPlan } = useUserPlan(); // Make sure we get setUserPlan too
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (user) {
-      fetchUserPlan(); // Fetch the user's plan
-      GetUserProductListing(); // Fetch the product listings
+      fetchUserPlan();
+      GetUserProductListing();
     }
   }, [user]);
 
@@ -38,16 +32,15 @@ const MyListings = ({ setTotalListings }) => {
       const result = await db
         .select()
         .from(UserPlan)
-        .where(eq(UserPlan.userId, user?.id)); // Querying with Drizzle
+        .where(eq(UserPlan.userId, user?.id));
 
       if (result.length > 0) {
-        setPlan(result[0].plan); // Set the fetched plan
-      } else {
-        setPlan('Δεν έχει οριστεί συνδρομή'); // Default plan if not found
+        const fetchedPlan = result[0].plan;
+        // Update both local state and context
+        setUserPlan(fetchedPlan); // Update the context
       }
     } catch (error) {
       console.error('Error fetching user plan:', error);
-      setPlan('Δεν έχει οριστεί συνδρομή'); // Fallback default
     }
   };
 
@@ -58,12 +51,10 @@ const MyListings = ({ setTotalListings }) => {
         .from(ProductListing)
         .leftJoin(ProductImages, eq(ProductListing.id, ProductImages.ProductListingId))
         .where(eq(ProductListing.createdBy, user?.primaryEmailAddress?.emailAddress))
-        .orderBy(desc(ProductListing.id)); // Drizzle supports chained methods
+        .orderBy(desc(ProductListing.id));
 
       const resp = Service.FormatResult(result);
       setProductList(resp);
-
-      // Update totalListings in the parent component
       setTotalListings(resp.length);
     } catch (error) {
       console.error('Error fetching user listings:', error);
@@ -72,57 +63,41 @@ const MyListings = ({ setTotalListings }) => {
     }
   };
 
-  const getTargetPath = () => {
-    if (!plan || plan === 'Δεν έχει οριστεί συνδρομή') {
-      return '/choosePlan'; // Default to the choose plan page
-    }
-    switch (plan) {
-      case 'Basic':
-        return '/BasicListing';
-      case 'Boost':
-        return '/BoostListing';
-      case 'Boost+':
-        return '/BoostPlusListing';
-      default:
-        return '/choosePlan';
-    }
-  };
+  const handleAddListing = () => {
 
-  const handleAddListing = (e) => {
-    // Check if the user exceeds listing limits based on their plan
-    if (plan === 'Basic' && productList.length >= 5) {
-      toast({
-        variant: "destructive",
-        title: `Υπέρβαση Ορίων Πλάνου Basic.`,
-        description: `Μπορείτε να Ανεβάσετε έως 5 Αγγελίες. Αναβαθμίστε το Πακέτο σας μέσω της καρτέλας προφίλ.`,
-      });
-      navigate('/choosePlan');
-      e?.preventDefault(); // Ensure event is optional
-      return;
-    } else if (plan === 'Boost' && productList.length >= 15) {
-      toast({
-        variant: "destructive",
-        title: `Υπέρβαση Ορίων Πλάνου Boost.`,
-        description: `Μπορείτε να Ανεβάσετε έως 15 Αγγελίες. Αναβαθμίστε το Πακέτο σας μέσω της καρτέλας προφίλ.`,
-      });
-      navigate('/choosePlan');
-      e?.preventDefault(); // Ensure event is optional
-      return;
-    }
-  
-    // If user has no plan, prompt them to choose one
+    // Check if user has a plan
     if (!userPlan) {
       toast({
         title: "Απαιτείται Συνδρομή",
         description: "Παρακαλώ επιλέξτε ένα πακέτο για να προσθέσετε αγγελία.",
-        status: "warning",
-        duration: 5000,
+        variant: "destructive",
       });
       navigate('/choosePlan');
       return;
     }
-  
-    // Navigate based on user's plan
+
+    // Check listing limits based on plan
+    if (userPlan === 'Basic' && productList.length >= 5) {
+      toast({
+        variant: "destructive",
+        title: `Υπέρβαση Ορίων Πλάνου Basic`,
+        description: `Μπορείτε να Ανεβάσετε έως 5 Αγγελίες. Αναβαθμίστε το Πακέτο σας μέσω της καρτέλας προφίλ.`,
+      });
+      navigate('/choosePlan');
+      return;
+    }
+
+    if (userPlan === 'Boost' && productList.length >= 15) {
+      toast({
+        variant: "destructive",
+        title: `Υπέρβαση Ορίων Πλάνου Boost`,
+        description: `Μπορείτε να Ανεβάσετε έως 15 Αγγελίες. Αναβαθμίστε το Πακέτο σας μέσω της καρτέλας προφίλ.`,
+      });
+      navigate('/choosePlan');
+      return;
+    }
+
+    // Navigate based on plan
     switch (userPlan) {
       case 'Basic':
         navigate('/BasicListing');
@@ -137,9 +112,9 @@ const MyListings = ({ setTotalListings }) => {
         navigate('/BasicListing');
     }
   };
-  
+
   if (loading) {
-    return <div>Loading...</div>; // Show loading spinner or placeholder
+    return <div>Loading...</div>;
   }
 
   return (
@@ -155,7 +130,7 @@ const MyListings = ({ setTotalListings }) => {
           </Button>
         </div>
       </div>
-  
+
       <div className="myListings-grid">
         {productList.map((item, index) => (
           <div key={index} className="myListings-item">
@@ -178,4 +153,5 @@ const MyListings = ({ setTotalListings }) => {
     </div>
   );
 }
-export default MyListings;  
+
+export default MyListings;

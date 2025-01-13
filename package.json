@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
-    "db:generate":"drizzle-kit generate",
+    "db:generate": "drizzle-kit generate",
     "server": "node server/index.js",
     "dev:all": "concurrently \"npm run dev\" \"npm run server\""
   },
@@ -48,6 +48,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-firebase-hooks": "^5.1.1",
+    "react-google-adsense": "^0.0.5",
     "react-icons": "^5.4.0",
     "react-router-dom": "^7.0.2",
     "react-toastify": "^11.0.2",
