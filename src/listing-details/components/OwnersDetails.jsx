@@ -21,8 +21,8 @@ const OwnersDetails = ({ productDetail }) => {
       </div>
       <Separator />
       <div className="flex gap-10 mt-5 items-center">
-        <h2 className="text-2xl">Διεύθυνση:</h2>
-        <h2 className="font-medium text-xl text-[#242424]">
+        <h2 className="text-2xl">Περιοχή:</h2>
+        <h2 className="font-light text-xl text-[#242424]">
           {productDetail?.addressPosted}
         </h2>
       </div>
@@ -32,7 +32,7 @@ const OwnersDetails = ({ productDetail }) => {
         <h2 className="font-light text-xl">
           <a
             href={`tel:+${productDetail?.ownerTel}`}
-            className="text-[#242424] hover:scale-105 hover:text-[#E78430] transition-all no-underline"
+            className="text-[#242424] hover:scale-105 hover:text-[#E78430] transition-all font-light no-underline"
           >
             {productDetail?.ownerTel}
           </a>

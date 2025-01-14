@@ -28,17 +28,17 @@ const PromotedProducts = () => {
         };
 
         return (
-            <>
-                <h2 className="bg-orange-500 px-3 py-1 rounded-full text-sm pb-1 text-white">
+            <div className="absolute top-2 left-2 z-10 flex gap-2 flex-wrap max-w-[calc(100%-16px)] pointer-events-none">
+                <div className="bg-orange-500 px-3 py-1 rounded-full text-sm pb-1 text-white whitespace-nowrap">
                     {product?.typeoflist === 'Αγορά' ? 'Πώληση' : 'Ενοικίαση'}
-                </h2>
+                </div>
                 
                 {product?.userPlan && product.userPlan !== 'Basic' && (
-                    <h2 className={`${getPlanBadgeStyle(product.userPlan)} px-3 py-1 rounded-full text-sm pb-1 text-white`}>
+                    <div className={`${getPlanBadgeStyle(product.userPlan)} px-3 py-1 rounded-full text-sm pb-1 text-white whitespace-nowrap`}>
                         {product.userPlan}
-                    </h2>
+                    </div>
                 )}
-            </>
+            </div>
         );
     };
 
@@ -94,12 +94,14 @@ const PromotedProducts = () => {
                     {productList.map((item, index) => (
                         <CarouselItem 
                             key={index} 
-                            className={`w-full sm:basis-full md:basis-1/2 lg:basis-1/3`}
+                            className="w-full sm:basis-full md:basis-1/2 lg:basis-1/3 xl:basis-1/4"
                         >
-                            <ProductItem 
-                                product={item} 
-                                badges={renderBadges(item)}
-                            />
+                            <div className="relative">
+                                {renderBadges(item)}
+                                <ProductItem 
+                                    product={item}
+                                />
+                            </div>
                         </CarouselItem>
                     ))}
                 </CarouselContent>

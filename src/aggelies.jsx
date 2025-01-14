@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import { CategoriesList } from './Shared/Data';
@@ -9,19 +9,21 @@ import { ProductListing, ProductImages } from './../configs/schema';
 import { eq, and, sql } from 'drizzle-orm';
 import ProductItemAggelies from './components/ProductItemAggelies';
 import { CategoryContext } from './components/CategoriesContext';
+import { IoMenuOutline, IoCloseOutline, IoFilterOutline } from "react-icons/io5";
 
 const Aggelies = () => {
   const { selectedCategory, setSelectedCategory } = useContext(CategoryContext);
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate(); // Add navigate hook
   const [productList, setProductList] = useState([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  // Get filters from URL
+  // Get filters from URL and setup state
   const categoryFromUrl = searchParams.get('category');
   const typeoflist = searchParams.get('typeoflist');
   const price = searchParams.get('price');
 
-  // Set category from URL parameters or use context
   useEffect(() => {
     if (categoryFromUrl) {
       setSelectedCategory(categoryFromUrl);
@@ -30,46 +32,36 @@ const Aggelies = () => {
     }
   }, [categoryFromUrl, selectedCategory, setSelectedCategory]);
 
-  // Fetch products whenever selectedCategory, typeoflist, or price changes
   useEffect(() => {
     if (selectedCategory) {
-      fetchProducts();
+      setLoading(true);
+      fetchProducts().finally(() => setLoading(false));
     }
   }, [selectedCategory, typeoflist, price]);
 
-  // Helper function to get plan priority
   const getPlanPriority = (plan) => {
-    switch (plan) {
-      case 'Boost+':
-        return 3;
-      case 'Boost':
-        return 2;
-      default: // 'Basic' or any other plan
-        return 1;
-    }
+    const priorities = { 'Boost+': 3, 'Boost': 2, 'Basic': 1 };
+    return priorities[plan] || 1;
   };
 
-  // Fetch products based on filters
   const fetchProducts = async () => {
     try {
       let conditions = [eq(ProductListing.category, selectedCategory)];
 
-      // Add typeoflist filter
       if (typeoflist) {
         conditions.push(eq(ProductListing.typeoflist, typeoflist));
       }
 
-      // Add price filter
       if (price) {
-        const priceRange = price.split('-');
-        const minPrice = priceRange[0] ? parseInt(priceRange[0].trim()) : null;
-        const maxPrice = priceRange[1] ? parseInt(priceRange[1].trim().replace('€', '').trim()) : null;
+        const [minPrice, maxPrice] = price.split('-').map(p => 
+          p ? parseInt(p.replace('€', '').trim()) : null
+        );
 
-        if (minPrice !== null && maxPrice !== null) {
+        if (minPrice && maxPrice) {
           conditions.push(sql`CAST(${ProductListing.sellingPrice} AS INTEGER) BETWEEN ${minPrice} AND ${maxPrice}`);
-        } else if (minPrice !== null) {
+        } else if (minPrice) {
           conditions.push(sql`CAST(${ProductListing.sellingPrice} AS INTEGER) >= ${minPrice}`);
-        } else if (maxPrice !== null) {
+        } else if (maxPrice) {
           conditions.push(sql`CAST(${ProductListing.sellingPrice} AS INTEGER) <= ${maxPrice}`);
         }
       }
@@ -81,13 +73,9 @@ const Aggelies = () => {
         .where(and(...conditions));
 
       const formattedResult = Service.FormatResult(result);
-      
-      // Sort the products based on plan priority
-      const sortedProducts = formattedResult.sort((a, b) => {
-        const planPriorityA = getPlanPriority(a.userPlan);
-        const planPriorityB = getPlanPriority(b.userPlan);
-        return planPriorityB - planPriorityA;
-      });
+      const sortedProducts = formattedResult.sort((a, b) => 
+        getPlanPriority(b.userPlan) - getPlanPriority(a.userPlan)
+      );
 
       setProductList(sortedProducts);
     } catch (error) {
@@ -95,27 +83,21 @@ const Aggelies = () => {
     }
   };
 
-  // Render badges for the product
   const renderBadges = (product) => {
-    const getPlanBadgeStyle = (plan) => {
-      switch(plan) {
-        case 'Boost+':
-          return 'bg-gradient-to-r from-yellow-400 via-orange-500 to-red-600 font-dancing-script font-bold';
-        case 'Boost':
-          return 'bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 font-inter';
-        default:
-          return 'hidden';
-      }
+    const planBadgeStyles = {
+      'Boost+': 'bg-gradient-to-r from-yellow-400 via-orange-500 to-red-600 font-dancing-script font-bold',
+      'Boost': 'bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 font-inter',
+      'Basic': 'hidden'
     };
 
     return (
       <>
-        <h2 className="bg-orange-500 px-3 py-1 rounded-full text-sm pb-1 text-white">
+        <h2 className="bg-orange-500 px-3 py-1 rounded-full text-sm font-medium text-white shadow-sm">
           {product?.typeoflist === 'Αγορά' ? 'Πώληση' : 'Ενοικίαση'}
         </h2>
         
         {product?.userPlan && product.userPlan !== 'Basic' && (
-          <h2 className={`${getPlanBadgeStyle(product.userPlan)} px-3 py-1 rounded-full text-sm pb-1 text-white`}>
+          <h2 className={`${planBadgeStyles[product.userPlan]} px-3 py-1 rounded-full text-sm font-medium text-white shadow-sm`}>
             {product.userPlan}
           </h2>
         )}
@@ -123,39 +105,50 @@ const Aggelies = () => {
     );
   };
 
-  // Handle category click in the sidebar
   const handleCategoryClick = (category) => {
     setSelectedCategory(category.name);
     setSidebarOpen(false);
+
+    // Create a new URLSearchParams with current parameters
+    const newSearchParams = new URLSearchParams(searchParams);
+    // Update the category parameter
+    newSearchParams.set('category', category.name);
+    
+    // Navigate to the new URL while preserving other parameters
+    navigate(`/aggelies?${newSearchParams.toString()}`);
   };
 
   return (
     <div className="aggelies-container">
       <Header />
       
-      <div className="aggelies-main-content">
-        <button
-          className="mobile-sidebar-toggle"
-          onClick={() => setSidebarOpen(!sidebarOpen)}
-        >
-          ☰ Κατηγορίες
-        </button>
+      <button
+        className="mobile-sidebar-toggle"
+        onClick={() => setSidebarOpen(!sidebarOpen)}
+      >
+        {sidebarOpen ? <IoCloseOutline size={20} /> : <IoMenuOutline size={20} />}
+        <span>Κατηγορίες</span>
+      </button>
 
+      <div className="aggelies-main-content">
         {/* Sidebar */}
-        <div className={`aggelies-sidebar ${sidebarOpen ? 'open' : ''}`}>
-          <h2 className="aggelies-sidebar-title">Κατηγορίες</h2>
+        <aside className={`aggelies-sidebar ${sidebarOpen ? 'open' : ''}`}>
+          <h2 className="aggelies-sidebar-title">
+            <IoFilterOutline className="inline-block mr-2" />
+            Κατηγορίες
+          </h2>
           <div className="aggelies-categories-list">
             {CategoriesList.map((category, index) => (
               <div
                 key={index}
                 className={`aggelies-category-item ${
-                  selectedCategory === category.name ? 'aggelies-selected-category active-category' : ''
+                  selectedCategory === category.name ? 'aggelies-selected-category' : ''
                 }`}
                 onClick={() => handleCategoryClick(category)}
               >
                 <img
-                  className={`category-images aggelies-category-image ${
-                    selectedCategory === category.name ? 'active-category' : 'text-[#fcc178]'
+                  className={`aggelies-category-image ${
+                    selectedCategory === category.name ? 'active-category' : ''
                   }`}
                   src={category.icon}
                   alt={category.name}
@@ -164,28 +157,37 @@ const Aggelies = () => {
               </div>
             ))}
           </div>
-        </div>
+        </aside>
 
         {/* Product Display */}
-        <div className="aggelies-product-display">
+        <main className="aggelies-product-display">
           <h2 className="aggelies-category-title">
             {selectedCategory}
-            {(typeoflist || price) && ' - Φιλτραρισμένα αποτελέσματα'}
+            {(typeoflist || price) && 
+              <span className="text-sm font-normal text-gray-500 ml-2">
+                (Φιλτραρισμένα αποτελέσματα)
+              </span>
+            }
           </h2>
+
           <div className="aggelies-product-grid">
-            {productList?.length > 0 ? (
+            {loading ? (
+              Array(8).fill(null).map((_, index) => (
+                <div key={index} className="aggelies-placeholder animate-pulse" />
+              ))
+            ) : productList?.length > 0 ? (
               productList.map((item, index) => (
-                <div key={index}>
+                <div key={index} className="transform transition-transform duration-200 hover:translate-y-[-4px]">
                   <ProductItemAggelies product={item} badges={renderBadges(item)} />
                 </div>
               ))
             ) : (
-              [1, 2, 3, 4].map((item, index) => (
-                <div key={index} className="aggelies-placeholder"></div>
-              ))
+              <div className="col-span-full text-center py-8 text-gray-500">
+                Δεν βρέθηκαν προϊόντα σε αυτήν την κατηγορία
+              </div>
             )}
           </div>
-        </div>
+        </main>
       </div>
       
       <Footer />
