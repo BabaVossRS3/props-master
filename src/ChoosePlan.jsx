@@ -15,7 +15,7 @@ import { eq, desc } from 'drizzle-orm';
 import Service from './Shared/Service';
 
 
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_TEST_KEY);
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
 const ChoosePlan = () => {
   const navigate = useNavigate();
@@ -49,7 +49,7 @@ const ChoosePlan = () => {
     {
       name: 'Boost',
       price: 5,
-      priceId: 'price_1QfMjyK00QUEA36eq7WUtJzI',
+      priceId: 'price_1Qh9UqK00QUEA36eyvNmGlGH',
       features: [
         'Ανέβασμα έως 20 αγγελιών ανά προφίλ.',
         'Βελτιωμένα χαρακτηριστικά Καταχώρησης.',
@@ -62,7 +62,7 @@ const ChoosePlan = () => {
     {
       name: 'Boost+',
       price: 7,
-      priceId: 'price_1QfMkpK00QUEA36eurhbVFTL',
+      priceId: 'price_1Qh9YCK00QUEA36eLxmMUuWj',
       features: [
         'Απεριόριστα ανεβάσματα αγγελιών.',
         'Αποκλειστικά χαρακτηριστικά καταχώρησης.',
@@ -97,7 +97,7 @@ const ChoosePlan = () => {
         return;
       }
   
-      const response = await fetch('http://localhost:3001/api/create-checkout-session', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/create-checkout-session`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
